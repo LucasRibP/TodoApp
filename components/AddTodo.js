@@ -29,6 +29,7 @@ export default AddTodo = () => {
 const ComponentContainer = styled.View`
   flex-direction: row;
   margin: 0 20px;
+  margin-bottom: 10px;
   overflow: hidden;
   border-radius: 10px;
   background-color: white;
