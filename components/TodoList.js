@@ -5,11 +5,18 @@ import Todo from "./Todo";
 export default TodoList = ({ todos }) => {
   return (
     <ComponentContainer>
-      <List data={todos} renderItem={Todo} keyExtractor={(item) => item.text} />
+      <List
+        data={todos}
+        renderItem={(item) => <Todo todo={item} />}
+        keyExtractor={(item) => item.text}
+      />
     </ComponentContainer>
   );
 };
 
-const ComponentContainer = styled.View``;
+const ComponentContainer = styled.View`
+  flex-grow: 1;
+  height: 200px;
+`;
 
 const List = styled.FlatList``;

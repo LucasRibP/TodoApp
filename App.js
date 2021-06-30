@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import AddTodo from "./components/AddTodo";
 import Empty from "./components/Empty";
 import styled from "styled-components";
+import TodoList from "./components/TodoList";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
@@ -11,10 +12,11 @@ export default function App() {
   const addTodo = (todo) => {
     setTodos([...todos, todo]);
   };
+
   console.log(todos);
   return (
     <Root>
-      <Empty />
+      {todos.length === 0 ? <Empty /> : <TodoList todos={todos} />}
       <AddTodo addTodo={addTodo} />
     </Root>
   );
