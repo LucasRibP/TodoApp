@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import { Text } from "react-native";
 import styled from "styled-components";
 
-export default AddTodo = () => {
+export default AddTodo = ({ addTodo }) => {
   const [value, setValue] = useState("");
+
+  const onSubmit = () => {
+    addTodo({
+      text: value,
+    });
+    setValue("");
+  };
 
   const onChangeText = (text) => {
     setValue(text);
@@ -12,13 +19,13 @@ export default AddTodo = () => {
   return (
     <ComponentContainer>
       <InputContainer>
-        <Input placeholder="Add todo" onChangeText={onChangeText} />
+        <Input
+          placeholder="Add todo"
+          onChangeText={onChangeText}
+          value={value}
+        />
       </InputContainer>
-      <SubmitButton
-        onPress={() => {
-          alert("button clicked");
-        }}
-      >
+      <SubmitButton onPress={onSubmit}>
         <Text>Add</Text>
       </SubmitButton>
     </ComponentContainer>

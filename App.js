@@ -7,10 +7,15 @@ import styled from "styled-components";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
+
+  const addTodo = (todo) => {
+    setTodos([...todos, todo]);
+  };
+  console.log(todos);
   return (
     <Root>
       <Empty />
-      <AddTodo />
+      <AddTodo addTodo={addTodo} />
     </Root>
   );
 }

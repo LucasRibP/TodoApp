@@ -4,13 +4,13 @@ import { Text } from "react-native";
 
 export default Empty = () => {
   return (
-    <MessageHolder>
+    <ComponentContainer>
       <Text>Your to-do list is empty, add a new to-do!</Text>
-    </MessageHolder>
+    </ComponentContainer>
   );
 };
 
-const MessageHolder = styled.View`
+const ComponentContainer = styled.View`
   flex-grow: 1;
   align-items: center;
   justify-content: center;
