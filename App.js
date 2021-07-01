@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, StatusBar } from "react-native";
 import AddTodo from "./components/AddTodo";
 import Empty from "./components/Empty";
 import styled from "styled-components";
@@ -13,16 +12,24 @@ export default function App() {
     setTodos([...todos, todo]);
   };
 
-  console.log(todos);
   return (
     <Root>
-      {todos.length === 0 ? <Empty /> : <TodoList todos={todos} />}
-      <AddTodo addTodo={addTodo} />
+      <View>
+        <StatusBar barStyle="light-content" backgroundColor="#7a7a7a" />
+      </View>
+      <Content>
+        {todos.length === 0 ? <Empty /> : <TodoList todos={todos} />}
+        <AddTodo addTodo={addTodo} />
+      </Content>
     </Root>
   );
 }
 
 const Root = styled.View`
+  flex: 1;
+`;
+
+const Content = styled.View`
   flex: 1;
   flex-direction: column;
   background-color: #7a7a7a;

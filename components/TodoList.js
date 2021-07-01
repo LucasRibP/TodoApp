@@ -8,15 +8,19 @@ export default TodoList = ({ todos }) => {
       <List
         data={todos}
         renderItem={(item) => <Todo todo={item} />}
-        keyExtractor={(item) => item.text}
+        keyExtractor={(item) => {
+          return item.key;
+        }}
       />
     </ComponentContainer>
   );
 };
 
 const ComponentContainer = styled.View`
-  flex-grow: 1;
-  height: 200px;
+  width: 400px;
+  flex: 1;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const List = styled.FlatList``;

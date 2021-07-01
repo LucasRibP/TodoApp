@@ -6,8 +6,10 @@ export default AddTodo = ({ addTodo }) => {
   const [value, setValue] = useState("");
 
   const onSubmit = () => {
+    let today = new Date();
     addTodo({
       text: value,
+      key: today.toISOString(),
     });
     setValue("");
   };
