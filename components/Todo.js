@@ -17,13 +17,16 @@ export default Todo = ({ todo }) => {
 const ComponentContainer = styled.View`
   margin-bottom: 10px;
   flex-direction: row;
-  border-width: 5px;
-  border-color: white;
+  background-color: #eee;
+  border-radius: 10px;
   overflow: hidden;
-  padding: 10px;
+  padding: 12px;
   align-items: center;
 `;
 
 const CheckboxContainer = styled.View``;
 
-const TodoText = styled.Text``;
+const TodoText = styled.Text`
+  flex: 1;
+  margin-left: 10px;
+`;

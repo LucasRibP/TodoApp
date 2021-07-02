@@ -59,6 +59,6 @@ const SubmitButton = styled.TouchableOpacity`
   width: 50px;
   justify-content: center;
   align-items: center;
-  background-color: whitesmoke;
+  background-color: #ddd;
   border-radius: 10px;
 `;
