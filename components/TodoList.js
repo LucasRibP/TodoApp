@@ -1,13 +1,20 @@
 import React from "react";
+import { Pressable } from "react-native";
 import styled from "styled-components";
 import Todo from "./Todo";
 
-export default TodoList = ({ todos }) => {
+export default TodoList = ({ todos, onPressTodo }) => {
   return (
     <ComponentContainer>
       <List
         data={todos}
-        renderItem={(item) => <Todo todo={item} />}
+        renderItem={(item) => {
+          return (
+            <Pressable onPress={() => onPressTodo(item.index)}>
+              <Todo todo={item} />
+            </Pressable>
+          );
+        }}
         keyExtractor={(item) => {
           return item.key;
         }}

@@ -7,7 +7,7 @@ export default Todo = ({ todo }) => {
   return (
     <ComponentContainer>
       <CheckboxContainer>
-        <Checkbox />
+        <Checkbox checked={todo.item.checked} />
       </CheckboxContainer>
       <TodoText>{todo.item.text}</TodoText>
     </ComponentContainer>

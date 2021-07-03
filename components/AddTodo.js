@@ -10,6 +10,7 @@ export default AddTodo = ({ addTodo }) => {
     addTodo({
       text: value,
       key: today.toISOString(),
+      checked: false,
     });
     setValue("");
   };

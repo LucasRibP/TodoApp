@@ -12,13 +12,23 @@ export default function App() {
     setTodos([...todos, todo]);
   };
 
+  const onPressTodo = (index) => {
+    let newTodos = [...todos];
+    newTodos[index].checked = !newTodos[index].checked;
+    setTodos(newTodos);
+  };
+
   return (
     <Root>
       <View>
         <StatusBar barStyle="light-content" backgroundColor="#7a7a7a" />
       </View>
       <Content>
-        {todos.length === 0 ? <Empty /> : <TodoList todos={todos} />}
+        {todos.length === 0 ? (
+          <Empty />
+        ) : (
+          <TodoList todos={todos} onPressTodo={onPressTodo} />
+        )}
         <AddTodo addTodo={addTodo} />
       </Content>
     </Root>
