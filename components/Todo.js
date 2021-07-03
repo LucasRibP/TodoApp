@@ -5,11 +5,11 @@ import Checkbox from "./Checkbox";
 
 export default Todo = ({ todo }) => {
   return (
-    <ComponentContainer>
+    <ComponentContainer checked={todo.item.checked}>
       <CheckboxContainer>
         <Checkbox checked={todo.item.checked} />
       </CheckboxContainer>
-      <TodoText>{todo.item.text}</TodoText>
+      <TodoText checked={todo.item.checked}>{todo.item.text}</TodoText>
     </ComponentContainer>
   );
 };
@@ -22,6 +22,7 @@ const ComponentContainer = styled.View`
   overflow: hidden;
   padding: 12px;
   align-items: center;
+  opacity: ${(props) => (props.checked ? "0.5" : "1")};
 `;
 
 const CheckboxContainer = styled.View``;
@@ -29,4 +30,5 @@ const CheckboxContainer = styled.View``;
 const TodoText = styled.Text`
   flex: 1;
   margin-left: 10px;
+  text-decoration: ${(props) => (props.checked ? "line-through" : "none")};
 `;
