@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Pressable } from "react-native";
 
 export default Checkbox = ({
-  checked = true,
+  checked = false,
   size = "20px",
   borderColor = "black",
   checkedColor = "#ffcb7d",
@@ -32,12 +32,36 @@ const Circle = styled.View`
   border-color: ${(props) => props.borderColor};
   background-color: ${(props) =>
     props.checked ? props.checkedColor : "transparent"};
+  overflow: visible;
+  justify-content: center;
 `;
 
-const CheckedSymbol = () => {
-  return <CheckedSymbolContainer></CheckedSymbolContainer>;
+const CheckedSymbol = ({ size, color, active }) => {
+  return (
+    <CheckedSymbolContainer active={active}>
+      <LineBack size={size} angle="45deg" color={color} />
+      <LineFront size={size} angle="-45deg" color={color} />
+    </CheckedSymbolContainer>
+  );
 };
 
 const CheckedSymbolContainer = styled.View`
+  align-items: center;
+  opacity: ${(props) => (props.active ? "1" : "0")};
+`;
+
+const LineBack = styled.View`
+  height: ${(props) => `${parseInt(props.size) * 1.5}px`};
+  width: 1.5px;
+  transform: rotate(${(props) => props.angle});
+  background-color: ${(props) => props.color};
+  position: relative;
+`;
+
+const LineFront = styled.View`
+  height: ${(props) => `${parseInt(props.size) * 1.5}px`};
+  width: 1.5px;
+  transform: rotate(${(props) => props.angle});
+  background-color: ${(props) => props.color};
   position: absolute;
 `;
