@@ -9,12 +9,25 @@ export default function App() {
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
-    setTodos([...todos, todo]);
+    let newTodos = [...todos, todo];
+    newTodos.sort((a, b) => {
+      if (a.checked == b.checked) {
+        a.key > b.key ? 1 : -1;
+      }
+      return a.checked ? 1 : -1;
+    });
+    setTodos(newTodos);
   };
 
   const onPressTodo = (index) => {
     let newTodos = [...todos];
     newTodos[index].checked = !newTodos[index].checked;
+    newTodos.sort((a, b) => {
+      if (a.checked == b.checked) {
+        a.key > b.key ? 1 : -1;
+      }
+      return a.checked ? 1 : -1;
+    });
     setTodos(newTodos);
   };
 
