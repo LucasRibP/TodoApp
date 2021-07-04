@@ -3,11 +3,11 @@ import styled from "styled-components";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Checkbox from "./Checkbox";
 
-export default Todo = ({ todo }) => {
+export default Todo = ({ todo, checkAnimation }) => {
   return (
     <ComponentContainer checked={todo.item.checked}>
       <CheckboxContainer>
-        <Checkbox checked={todo.item.checked} />
+        <Checkbox checked={todo.item.checked} checkAnimation={checkAnimation} />
       </CheckboxContainer>
       <TodoText checked={todo.item.checked}>{todo.item.text}</TodoText>
     </ComponentContainer>

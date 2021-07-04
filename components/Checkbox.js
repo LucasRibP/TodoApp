@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Pressable } from "react-native";
+import { Animated } from "react-native";
 
 export default Checkbox = ({
+  checkAnimation,
   checked = false,
   size = "20px",
   borderColor = "black",
@@ -16,7 +17,11 @@ export default Checkbox = ({
         checked={checked}
         checkedColor={checkedColor}
       >
-        <CheckedSymbol color={borderColor} active={checked} size={size} />
+        <CheckedSymbol
+          color={borderColor}
+          size={size}
+          checkAnimation={checkAnimation}
+        />
       </Circle>
     </CheckboxContainer>
   );
@@ -36,32 +41,31 @@ const Circle = styled.View`
   justify-content: center;
 `;
 
-const CheckedSymbol = ({ size, color, active }) => {
+const CheckedSymbol = ({ size, color, checkAnimation }) => {
   return (
-    <CheckedSymbolContainer active={active}>
-      <LineBack size={size} angle="45deg" color={color} />
-      <LineFront size={size} angle="-45deg" color={color} />
+    <CheckedSymbolContainer>
+      <Animated.View
+        style={{
+          height: parseInt(size) * 1.5,
+          width: 1.5,
+          transform: [{ rotate: "45deg" }],
+          backgroundColor: color,
+          position: "relative",
+        }}
+      />
+      <Animated.View
+        style={{
+          height: parseInt(size) * 1.5,
+          width: 1.5,
+          transform: [{ rotate: "-45deg" }],
+          backgroundColor: color,
+          position: "absolute",
+        }}
+      />
     </CheckedSymbolContainer>
   );
 };
 
 const CheckedSymbolContainer = styled.View`
   align-items: center;
-  opacity: ${(props) => (props.active ? "1" : "0")};
-`;
-
-const LineBack = styled.View`
-  height: ${(props) => `${parseInt(props.size) * 1.5}px`};
-  width: 1.5px;
-  transform: rotate(${(props) => props.angle});
-  background-color: ${(props) => props.color};
-  position: relative;
-`;
-
-const LineFront = styled.View`
-  height: ${(props) => `${parseInt(props.size) * 1.5}px`};
-  width: 1.5px;
-  transform: rotate(${(props) => props.angle});
-  background-color: ${(props) => props.color};
-  position: absolute;
 `;
