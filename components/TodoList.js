@@ -9,11 +9,7 @@ export default TodoList = ({ todos, onPressTodo }) => {
       <List
         data={todos}
         renderItem={(item) => {
-          return (
-            <Pressable onPress={() => onPressTodo(item.index)}>
-              <Todo todo={item} />
-            </Pressable>
-          );
+          return <Todo todo={item} onPressTodo={onPressTodo} />;
         }}
         keyExtractor={(item) => {
           return item.key;

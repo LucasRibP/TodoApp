@@ -2,15 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Checkbox from "./Checkbox";
+import { Pressable } from "react-native";
 
-export default Todo = ({ todo, checkAnimation }) => {
+export default Todo = ({ todo, onPressTodo }) => {
+  const onPress = () => {
+    onPressTodo(todo.index);
+  };
+
   return (
-    <ComponentContainer checked={todo.item.checked}>
-      <CheckboxContainer>
-        <Checkbox checked={todo.item.checked} checkAnimation={checkAnimation} />
-      </CheckboxContainer>
-      <TodoText checked={todo.item.checked}>{todo.item.text}</TodoText>
-    </ComponentContainer>
+    <Pressable onPress={onPress}>
+      <ComponentContainer checked={todo.item.checked}>
+        <CheckboxContainer>
+          <Checkbox checked={todo.item.checked} />
+        </CheckboxContainer>
+        <TodoText checked={todo.item.checked}>{todo.item.text}</TodoText>
+      </ComponentContainer>
+    </Pressable>
   );
 };
 
