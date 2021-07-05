@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Checkbox from "./Checkbox";
-import { Pressable } from "react-native";
+import { Animated, Pressable } from "react-native";
 
 export default Todo = ({ todo, onPressTodo }) => {
+  const checkAnim = useRef(
+    new Animated.Value(todo.item.checked ? 1 : 0)
+  ).current;
   const onPress = () => {
+    if (!todo.item.checked) {
+      Animated.timing(checkAnim, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(checkAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
     onPressTodo(todo.index);
   };
 
@@ -13,7 +29,7 @@ export default Todo = ({ todo, onPressTodo }) => {
     <Pressable onPress={onPress}>
       <ComponentContainer checked={todo.item.checked}>
         <CheckboxContainer>
-          <Checkbox checked={todo.item.checked} />
+          <Checkbox checked={todo.item.checked} checkAnim={checkAnim} />
         </CheckboxContainer>
         <TodoText checked={todo.item.checked}>{todo.item.text}</TodoText>
       </ComponentContainer>

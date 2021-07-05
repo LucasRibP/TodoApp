@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Animated } from "react-native";
 
 export default Checkbox = ({
-  checkAnimation,
+  checkAnim,
   checked = false,
   size = "20px",
   borderColor = "black",
@@ -17,11 +17,7 @@ export default Checkbox = ({
         checked={checked}
         checkedColor={checkedColor}
       >
-        <CheckedSymbol
-          color={borderColor}
-          size={size}
-          checkAnimation={checkAnimation}
-        />
+        <CheckedSymbol color={borderColor} size={size} checkAnim={checkAnim} />
       </Circle>
     </CheckboxContainer>
   );
@@ -41,14 +37,14 @@ const Circle = styled.View`
   justify-content: center;
 `;
 
-const CheckedSymbol = ({ size, color, checkAnimation }) => {
+const CheckedSymbol = ({ size, color, checkAnim }) => {
   return (
     <CheckedSymbolContainer>
       <Animated.View
         style={{
           height: parseInt(size) * 1.5,
           width: 1.5,
-          transform: [{ rotate: "45deg" }],
+          transform: [{ rotate: "45deg" }, { scaleY: checkAnim }],
           backgroundColor: color,
           position: "relative",
         }}
@@ -57,7 +53,7 @@ const CheckedSymbol = ({ size, color, checkAnimation }) => {
         style={{
           height: parseInt(size) * 1.5,
           width: 1.5,
-          transform: [{ rotate: "-45deg" }],
+          transform: [{ rotate: "-45deg" }, { scaleY: checkAnim }],
           backgroundColor: color,
           position: "absolute",
         }}
