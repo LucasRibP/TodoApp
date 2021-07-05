@@ -35,9 +35,7 @@ export default Todo = ({ todo, onPressTodo }) => {
           }),
         }}
       >
-        <CheckboxContainer>
-          <Checkbox checked={todo.item.checked} checkAnim={checkAnim} />
-        </CheckboxContainer>
+        <Checkbox checked={todo.item.checked} checkAnim={checkAnim} />
         <TodoText checked={todo.item.checked}>{todo.item.text}</TodoText>
       </Animated.View>
     </Pressable>
@@ -55,19 +53,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-const ComponentContainer = styled.View`
-  margin-bottom: 10px;
-  flex-direction: row;
-  background-color: #eee;
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 12px;
-  align-items: center;
-  opacity: ${(props) => (props.checked ? "0.5" : "1")};
-`;
-
-const CheckboxContainer = styled.View``;
 
 const TodoText = styled.Text`
   flex: 1;

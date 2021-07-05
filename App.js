@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { View, StatusBar } from "react-native";
 import AddTodo from "./components/AddTodo";
 import Empty from "./components/Empty";
 import styled from "styled-components";
