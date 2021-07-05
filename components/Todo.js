@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Checkbox from "./Checkbox";
-import { Animated, Pressable } from "react-native";
+import { Animated, Pressable, StyleSheet } from "react-native";
 
 export default Todo = ({ todo, onPressTodo }) => {
   const checkAnim = useRef(
@@ -27,15 +26,35 @@ export default Todo = ({ todo, onPressTodo }) => {
 
   return (
     <Pressable onPress={onPress}>
-      <ComponentContainer checked={todo.item.checked}>
+      <Animated.View
+        style={{
+          ...styles.componentContainer,
+          opacity: checkAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [1, 0.5],
+          }),
+        }}
+      >
         <CheckboxContainer>
           <Checkbox checked={todo.item.checked} checkAnim={checkAnim} />
         </CheckboxContainer>
         <TodoText checked={todo.item.checked}>{todo.item.text}</TodoText>
-      </ComponentContainer>
+      </Animated.View>
     </Pressable>
   );
 };
+
+const styles = StyleSheet.create({
+  componentContainer: {
+    marginBottom: 10,
+    flexDirection: "row",
+    backgroundColor: "#eee",
+    borderRadius: 10,
+    overflow: "hidden",
+    padding: 12,
+    alignItems: "center",
+  },
+});
 
 const ComponentContainer = styled.View`
   margin-bottom: 10px;
