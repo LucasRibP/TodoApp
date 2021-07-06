@@ -1,12 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Checkbox from "./Checkbox";
-import { Animated, Pressable, StyleSheet } from "react-native";
+import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default Todo = ({ todo, onPressTodo }) => {
+  const [lineSizes, setLineSizes] = useState([]);
+
   const checkAnim = useRef(
     new Animated.Value(todo.item.checked ? 1 : 0)
   ).current;
+
   const onPress = () => {
     if (!todo.item.checked) {
       Animated.timing(checkAnim, {
@@ -24,6 +27,12 @@ export default Todo = ({ todo, onPressTodo }) => {
     onPressTodo(todo.index);
   };
 
+  const onTextLayout = (tl) => {
+    setLineSizes(tl.nativeEvent.lines.map((line) => line.width));
+  };
+
+  const createStrikes = () => {};
+
   return (
     <Pressable onPress={onPress}>
       <Animated.View
@@ -36,7 +45,10 @@ export default Todo = ({ todo, onPressTodo }) => {
         }}
       >
         <Checkbox checked={todo.item.checked} checkAnim={checkAnim} />
-        <TodoText checked={todo.item.checked}>{todo.item.text}</TodoText>
+        <TextContainer>
+          <View style={styles.strikesContainer}>{createStrikes()}</View>
+          <Text onTextLayout={onTextLayout}>{todo.item.text}</Text>
+        </TextContainer>
       </Animated.View>
     </Pressable>
   );
@@ -52,10 +64,14 @@ const styles = StyleSheet.create({
     padding: 12,
     alignItems: "center",
   },
+  strikesContainer: {
+    position: "absolute",
+    flex: 1,
+    backgroundColor: "orangered",
+  },
 });
 
-const TodoText = styled.Text`
+const TextContainer = styled.View`
   flex: 1;
   margin-left: 10px;
-  text-decoration: ${(props) => (props.checked ? "line-through" : "none")};
 `;
