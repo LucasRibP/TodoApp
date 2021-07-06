@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Animated } from "react-native";
+import { Animated, StyleSheet } from "react-native";
 
 export default Checkbox = ({
   checkAnim,
@@ -9,14 +9,20 @@ export default Checkbox = ({
   borderColor = "black",
   checkedColor = "#ffcb7d",
 }) => {
+  const numSize = parseInt(size);
   return (
     <CheckboxContainer>
-      <Circle
-        size={size}
-        borderColor={borderColor}
-        checked={checked}
-        checkedColor={checkedColor}
-      >
+      <Circle size={size} borderColor={borderColor} checked={checked}>
+        <Animated.View
+          style={{
+            ...styles.circleBackground,
+            width: numSize,
+            height: numSize,
+            borderRadius: numSize,
+            backgroundColor: checkedColor,
+            opacity: checkAnim,
+          }}
+        />
         <CheckedSymbol color={borderColor} size={size} checkAnim={checkAnim} />
       </Circle>
     </CheckboxContainer>
@@ -31,8 +37,6 @@ const Circle = styled.View`
   border-radius: ${(props) => props.size};
   border-width: 1.5px;
   border-color: ${(props) => props.borderColor};
-  background-color: ${(props) =>
-    props.checked ? props.checkedColor : "transparent"};
   overflow: visible;
   justify-content: center;
 `;
@@ -61,6 +65,15 @@ const CheckedSymbol = ({ size, color, checkAnim }) => {
     </CheckedSymbolContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  circleBackground: {
+    position: "absolute",
+    borderWidth: 1.5,
+    borderColor: "transparent",
+    left: -1.5,
+  },
+});
 
 const CheckedSymbolContainer = styled.View`
   align-items: center;
