@@ -34,9 +34,13 @@ export default Todo = ({ todo, onPressTodo }) => {
 
     const totalWidth = lineDims.reduce((a, b) => a + b.width, 0);
     setLineSizes(
-      lineDims.map((line) => {
-        return { ...line, animPerc: line.width / totalWidth };
-      })
+      totalWidth == 0
+        ? lineDims.map((line) => {
+            return { ...line, animPerc: 1 };
+          })
+        : lineDims.map((line) => {
+            return { ...line, animPerc: line.width / totalWidth };
+          })
     );
   };
 
