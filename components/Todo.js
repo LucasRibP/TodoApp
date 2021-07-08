@@ -10,6 +10,8 @@ export default Todo = ({ todo, onPressTodo }) => {
     new Animated.Value(todo.item.checked ? 1 : 0)
   ).current;
 
+  const todoScaleAnim = useRef(new Animated.Value(1)).current;
+
   const onPress = () => {
     if (!todo.item.checked) {
       Animated.timing(checkAnim, {
@@ -25,6 +27,23 @@ export default Todo = ({ todo, onPressTodo }) => {
       }).start();
     }
     onPressTodo(todo.index);
+  };
+
+  const onLongPress = () => {
+    Animated.timing(todoScaleAnim, {
+      toValue: 0.97,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const onPressOut = () => {
+    Animated.timing(todoScaleAnim).stop();
+    Animated.timing(todoScaleAnim, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
   };
 
   const onTextLayout = (tl) => {
@@ -90,7 +109,11 @@ export default Todo = ({ todo, onPressTodo }) => {
   };
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable
+      onPress={onPress}
+      onLongPress={onLongPress}
+      onPressOut={onPressOut}
+    >
       <Animated.View
         style={{
           ...styles.componentContainer,
@@ -98,6 +121,7 @@ export default Todo = ({ todo, onPressTodo }) => {
             inputRange: [0, 1],
             outputRange: [1, 0.5],
           }),
+          transform: [{ scaleX: todoScaleAnim }, { scaleY: todoScaleAnim }],
         }}
       >
         <Checkbox checked={todo.item.checked} checkAnim={checkAnim} />
