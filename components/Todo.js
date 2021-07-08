@@ -14,13 +14,13 @@ export default Todo = ({ todo, onPressTodo }) => {
     if (!todo.item.checked) {
       Animated.timing(checkAnim, {
         toValue: 1,
-        duration: 200,
+        duration: 500,
         useNativeDriver: true,
       }).start();
     } else {
       Animated.timing(checkAnim, {
         toValue: 0,
-        duration: 200,
+        duration: 500,
         useNativeDriver: true,
       }).start();
     }
@@ -28,15 +28,32 @@ export default Todo = ({ todo, onPressTodo }) => {
   };
 
   const onTextLayout = (tl) => {
+    const lineDims = tl.nativeEvent.lines.map((line) => {
+      return { height: line.height, width: line.width };
+    });
+
+    const totalWidth = lineDims.reduce((a, b) => a + b.width, 0);
     setLineSizes(
-      tl.nativeEvent.lines.map((line) => {
-        return { height: line.height, width: line.width };
+      lineDims.map((line) => {
+        return { ...line, animPerc: line.width / totalWidth };
       })
     );
   };
 
   const createStrikes = () => {
+    let curAnimationTime = 0;
+
+    // TODO: Colocar o tempo especifico da animação em cada linha
+    // TODO: Ajustar altura da linha pra altura do strikethrough
+
     return lineSizes.map((line, i) => {
+      console.log(line);
+      const strikeAnim = checkAnim.interpolate({
+        inputRange: [0, curAnimationTime, curAnimationTime + line.animPerc, 1],
+        outputRange: [0, 0, 1, 1],
+      });
+      curAnimationTime += line.animPerc;
+
       if (line.width != 0)
         return (
           <View
@@ -55,13 +72,14 @@ export default Todo = ({ todo, onPressTodo }) => {
                 transform: [
                   { scaleY: 0.1 },
                   {
-                    translateX: checkAnim.interpolate({
+                    translateX: strikeAnim.interpolate({
                       inputRange: [0, 1],
                       outputRange: [-(line.width + 10) / 2, 0],
                     }),
                   },
+                  { translateY: line.height },
                   { translateX: -5 },
-                  { scaleX: checkAnim },
+                  { scaleX: strikeAnim },
                 ],
               }}
             />
