@@ -43,11 +43,7 @@ export default Todo = ({ todo, onPressTodo }) => {
   const createStrikes = () => {
     let curAnimationTime = 0;
 
-    // TODO: Colocar o tempo especifico da animação em cada linha
-    // TODO: Ajustar altura da linha pra altura do strikethrough
-
     return lineSizes.map((line, i) => {
-      console.log(line);
       const strikeAnim = checkAnim.interpolate({
         inputRange: [0, curAnimationTime, curAnimationTime + line.animPerc, 1],
         outputRange: [0, 0, 1, 1],
