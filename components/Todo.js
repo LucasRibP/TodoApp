@@ -1,7 +1,14 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Checkbox from "./Checkbox";
-import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Animated,
+  Easing,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default Todo = ({ todo, onPressTodo }) => {
   const [lineSizes, setLineSizes] = useState([]);
@@ -10,7 +17,13 @@ export default Todo = ({ todo, onPressTodo }) => {
     new Animated.Value(todo.item.checked ? 1 : 0)
   ).current;
 
+  const strikingAnim = useRef(
+    new Animated.Value(todo.item.checked ? 1 : 0)
+  ).current;
+
   const todoScaleAnim = useRef(new Animated.Value(1)).current;
+
+  // TODO: Finish adding easing functions to the animations
 
   const onPress = () => {
     if (!todo.item.checked) {
@@ -18,12 +31,26 @@ export default Todo = ({ todo, onPressTodo }) => {
         toValue: 1,
         duration: 500,
         useNativeDriver: true,
+        easing: Easing.in(Easing.exp),
+      }).start();
+      Animated.timing(strikingAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+        easing: Easing.in(Easing.exp),
       }).start();
     } else {
       Animated.timing(checkAnim, {
         toValue: 0,
         duration: 500,
         useNativeDriver: true,
+        easing: Easing.out(Easing.exp),
+      }).start();
+      Animated.timing(strikingAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+        easing: Easing.out(Easing.exp),
       }).start();
     }
     onPressTodo(todo.index);
@@ -34,6 +61,7 @@ export default Todo = ({ todo, onPressTodo }) => {
       toValue: 0.97,
       duration: 100,
       useNativeDriver: true,
+      easing: Easing.in(Easing.sin),
     }).start();
   };
 
@@ -43,6 +71,7 @@ export default Todo = ({ todo, onPressTodo }) => {
       toValue: 1,
       duration: 100,
       useNativeDriver: true,
+      easing: Easing.out(Easing.sin),
     }).start();
   };
 
@@ -67,7 +96,7 @@ export default Todo = ({ todo, onPressTodo }) => {
     let curAnimationTime = 0;
 
     return lineSizes.map((line, i) => {
-      const strikeAnim = checkAnim.interpolate({
+      const strikeAnim = strikingAnim.interpolate({
         inputRange: [0, curAnimationTime, curAnimationTime + line.animPerc, 1],
         outputRange: [0, 0, 1, 1],
       });
