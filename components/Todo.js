@@ -153,7 +153,7 @@ export default Todo = ({ todo, onPressTodo }) => {
           transform: [{ scaleX: todoScaleAnim }, { scaleY: todoScaleAnim }],
         }}
       >
-        <Checkbox checked={todo.item.checked} checkAnim={checkAnim} />
+        <Checkbox checkAnim={checkAnim} />
         <TextContainer>
           <View style={styles.strikesContainer}>{createStrikes()}</View>
           <Text onTextLayout={onTextLayout}>{todo.item.text}</Text>

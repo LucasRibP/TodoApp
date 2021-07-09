@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, StatusBar } from "react-native";
+import { View, StatusBar, StyleSheet } from "react-native";
 import AddTodo from "./components/AddTodo";
 import Empty from "./components/Empty";
-import styled from "styled-components";
 import TodoList from "./components/TodoList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -58,30 +57,31 @@ export default function App() {
   };
 
   return (
-    <Root>
+    <View style={styles.root}>
       <View>
         <StatusBar barStyle="light-content" backgroundColor="#7a7a7a" />
       </View>
-      <Content>
+      <View style={styles.content}>
         {todos.length === 0 ? (
           <Empty />
         ) : (
           <TodoList todos={todos} onPressTodo={onPressTodo} />
         )}
         <AddTodo addTodo={addTodo} />
-      </Content>
-    </Root>
+      </View>
+    </View>
   );
 }
 
-const Root = styled.View`
-  flex: 1;
-`;
-
-const Content = styled.View`
-  flex: 1;
-  flex-direction: column;
-  background-color: #7a7a7a;
-  align-items: center;
-  justify-content: space-between;
-`;
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#7a7a7a",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});
