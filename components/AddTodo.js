@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -34,6 +36,15 @@ export default AddTodo = ({ addTodo }) => {
           value={value}
         />
       </View>
+      <Pressable
+        style={(pressed) =>
+          pressed
+            ? [styles.tagContainer, styles.tagContainerPressed]
+            : [styles.tagContainer, styles.tagContainerUnpressed]
+        }
+      >
+        <MaterialCommunityIcons name="label" color="#aaa" size={30} />
+      </Pressable>
       <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
         <Text>Add</Text>
       </TouchableOpacity>
@@ -45,6 +56,7 @@ const styles = StyleSheet.create({
   componentContainer: {
     width: "98%",
     flexDirection: "row",
+    alignItems: "center",
     marginHorizontal: "1%",
     marginBottom: "1.5%",
     overflow: "hidden",
@@ -61,10 +73,22 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   submitButton: {
+    height: 48,
     width: 50,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#ddd",
     borderRadius: 10,
   },
+  tagContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+    width: 40,
+    borderRadius: 500,
+    marginHorizontal: 5,
+  },
+  tagContainerPressed: {},
+  tagContainerUnpressed: {},
+  tag: {},
 });
