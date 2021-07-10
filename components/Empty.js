@@ -1,17 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-import { Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default Empty = () => {
   return (
-    <ComponentContainer>
+    <View style={styles.componentContainer}>
       <Text>Your to-do list is empty, add a new to-do!</Text>
-    </ComponentContainer>
+    </View>
   );
 };
 
-const ComponentContainer = styled.View`
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-`;
+const styles = StyleSheet.create({
+  componentContainer: {
+    flexGrow: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
