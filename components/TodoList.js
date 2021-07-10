@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import { StyleSheet, View, FlatList } from "react-native";
 import Todo from "./Todo";
 
 export default TodoList = ({ todos, onPressTodo }) => {
   return (
-    <ComponentContainer>
-      <List
+    <View style={styles.componentContainer}>
+      <FlatList
         data={todos}
         renderItem={(item) => {
           return <Todo todo={item} onPressTodo={onPressTodo} />;
@@ -14,15 +14,15 @@ export default TodoList = ({ todos, onPressTodo }) => {
           return item.key;
         }}
       />
-    </ComponentContainer>
+    </View>
   );
 };
 
-const ComponentContainer = styled.View`
-  width: 400px;
-  flex: 1;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
-const List = styled.FlatList``;
+const styles = StyleSheet.create({
+  componentContainer: {
+    width: "98%",
+    marginHorizontal: "1%",
+    flex: 1,
+    marginVertical: "2%",
+  },
+});

@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components";
 import Checkbox from "./Checkbox";
 import {
   Animated,
@@ -22,8 +21,6 @@ export default Todo = ({ todo, onPressTodo }) => {
   ).current;
 
   const todoScaleAnim = useRef(new Animated.Value(1)).current;
-
-  // TODO: Finish adding easing functions to the animations
 
   const onPress = () => {
     if (!todo.item.checked) {
@@ -154,10 +151,10 @@ export default Todo = ({ todo, onPressTodo }) => {
         }}
       >
         <Checkbox checkAnim={checkAnim} />
-        <TextContainer>
+        <View style={styles.textContainer}>
           <View style={styles.strikesContainer}>{createStrikes()}</View>
           <Text onTextLayout={onTextLayout}>{todo.item.text}</Text>
-        </TextContainer>
+        </View>
       </Animated.View>
     </Pressable>
   );
@@ -177,9 +174,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     flex: 1,
   },
+  textContainer: {
+    flex: 1,
+    marginLeft: 10,
+  },
 });
-
-const TextContainer = styled.View`
-  flex: 1;
-  margin-left: 10px;
-`;

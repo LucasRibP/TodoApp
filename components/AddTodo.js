@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import { Text } from "react-native";
-import styled from "styled-components";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default AddTodo = ({ addTodo }) => {
   const [value, setValue] = useState("");
@@ -20,46 +25,46 @@ export default AddTodo = ({ addTodo }) => {
   };
 
   return (
-    <ComponentContainer>
-      <InputContainer>
-        <Input
+    <View style={styles.componentContainer}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
           placeholder="Add todo"
           onChangeText={onChangeText}
           value={value}
         />
-      </InputContainer>
-      <SubmitButton onPress={onSubmit}>
+      </View>
+      <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
         <Text>Add</Text>
-      </SubmitButton>
-    </ComponentContainer>
+      </TouchableOpacity>
+    </View>
   );
 };
 
-// Styles
-const ComponentContainer = styled.View`
-  flex-direction: row;
-  margin: 0 20px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  border-radius: 10px;
-  background-color: white;
-`;
-
-const InputContainer = styled.View`
-  flex-direction: row;
-`;
-
-const Input = styled.TextInput`
-  font-size: 20px;
-  background-color: white;
-  width: 350px;
-  padding: 10px;
-`;
-
-const SubmitButton = styled.TouchableOpacity`
-  width: 50px;
-  justify-content: center;
-  align-items: center;
-  background-color: #ddd;
-  border-radius: 10px;
-`;
+const styles = StyleSheet.create({
+  componentContainer: {
+    width: "98%",
+    flexDirection: "row",
+    marginHorizontal: "1%",
+    marginBottom: "1.5%",
+    overflow: "hidden",
+    borderRadius: 10,
+    backgroundColor: "white",
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  input: {
+    fontSize: 20,
+    backgroundColor: "white",
+    padding: 10,
+  },
+  submitButton: {
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ddd",
+    borderRadius: 10,
+  },
+});

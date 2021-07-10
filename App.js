@@ -12,7 +12,6 @@ export default function App() {
     const saveTodos = async () => {
       try {
         const jsonValue = JSON.stringify(todos);
-        console.log(todos);
         await AsyncStorage.setItem("@storage_Key", jsonValue);
       } catch (e) {
         console.log(e);

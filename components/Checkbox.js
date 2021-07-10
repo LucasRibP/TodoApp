@@ -1,49 +1,45 @@
 import React from "react";
-import styled from "styled-components";
-import { Animated, StyleSheet } from "react-native";
+import { View, Animated, StyleSheet } from "react-native";
 
 export default Checkbox = ({
   checkAnim,
-  checked = false,
-  size = "20px",
+  size = 20,
   borderColor = "black",
   checkedColor = "#ffcb7d",
 }) => {
-  const numSize = parseInt(size);
+  const sizeStyles = {
+    width: size,
+    height: size,
+    borderRadius: size,
+  };
+
   return (
-    <CheckboxContainer>
-      <Circle size={size} borderColor={borderColor} checked={checked}>
+    <View>
+      <View
+        style={[
+          styles.circle,
+          sizeStyles,
+          {
+            borderColor: borderColor,
+          },
+        ]}
+      >
         <Animated.View
-          style={{
-            ...styles.circleBackground,
-            width: numSize,
-            height: numSize,
-            borderRadius: numSize,
-            backgroundColor: checkedColor,
-            opacity: checkAnim,
-          }}
+          style={[
+            styles.circleBackground,
+            sizeStyles,
+            { backgroundColor: checkedColor, opacity: checkAnim },
+          ]}
         />
         <CheckedSymbol color={borderColor} size={size} checkAnim={checkAnim} />
-      </Circle>
-    </CheckboxContainer>
+      </View>
+    </View>
   );
 };
 
-const CheckboxContainer = styled.View``;
-
-const Circle = styled.View`
-  height: ${(props) => props.size};
-  width: ${(props) => props.size};
-  border-radius: ${(props) => props.size};
-  border-width: 1.5px;
-  border-color: ${(props) => props.borderColor};
-  overflow: visible;
-  justify-content: center;
-`;
-
 const CheckedSymbol = ({ size, color, checkAnim }) => {
   return (
-    <CheckedSymbolContainer>
+    <View style={styles.checkedSymbolContainer}>
       <Animated.View
         style={{
           height: parseInt(size) * 1.5,
@@ -62,7 +58,7 @@ const CheckedSymbol = ({ size, color, checkAnim }) => {
           position: "absolute",
         }}
       />
-    </CheckedSymbolContainer>
+    </View>
   );
 };
 
@@ -73,8 +69,12 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     left: -1.5,
   },
+  checkedSymbolContainer: {
+    alignItems: "center",
+  },
+  circle: {
+    borderWidth: 1.5,
+    overflow: "visible",
+    justifyContent: "center",
+  },
 });
-
-const CheckedSymbolContainer = styled.View`
-  align-items: center;
-`;
