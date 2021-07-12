@@ -9,13 +9,18 @@ export default DeletionPopUp = ({
   return (
     <View style={styles.componentContainer}>
       <View style={styles.popUpBox}>
-        <View style={styles.textContainer}></View>
+        <View style={styles.textContainer}>
+          <Text style={styles.questionText}>
+            Are you sure you want to delete the following to-do?
+          </Text>
+          <Text style={styles.todoText}>"{deletableTodo.text}"</Text>
+        </View>
         <View style={styles.buttonsContainer}>
           <Pressable
             style={styles.cancelButton}
             onPress={(e) => setIsDelPopUpOpen(false)}
           >
-            <Text>CANCEL</Text>
+            <Text style={styles.buttonText}>CANCEL</Text>
           </Pressable>
           <Pressable
             style={styles.deleteButton}
@@ -24,7 +29,7 @@ export default DeletionPopUp = ({
               setIsDelPopUpOpen(false);
             }}
           >
-            <Text>DELETE</Text>
+            <Text style={styles.buttonText}>DELETE</Text>
           </Pressable>
         </View>
       </View>
@@ -48,15 +53,35 @@ const styles = StyleSheet.create({
     height: "40%",
     width: "80%",
     borderRadius: 10,
+    overflow: "hidden",
   },
   textContainer: {
+    padding: "8%",
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
+  questionText: { fontSize: 16 },
+  todoText: { marginTop: "5%", fontSize: 16 },
   buttonsContainer: {
     flexDirection: "row",
     width: "100%",
-    backgroundColor: "orangered",
+    height: "20%",
   },
-  cancelButton: { flex: 1, backgroundColor: "grey" },
-  deleteButton: { flex: 1, backgroundColor: "red" },
+  cancelButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "grey",
+  },
+  deleteButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
+  },
+  buttonText: {
+    color: "#eee",
+    fontSize: 20,
+  },
 });
