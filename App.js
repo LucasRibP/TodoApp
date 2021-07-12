@@ -9,7 +9,6 @@ import DeletionPopUp from "./components/DeletionPopUp";
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
-  const [deleteTodoFunction, setDeleteTodoFunction] = useState(() => {});
   const [deletableTodo, setDeletableTodo] = useState({ name: "" });
 
   useEffect(() => {
@@ -60,13 +59,15 @@ export default function App() {
   };
 
   const openDeletionPopUp = (todo) => {
-    setDeleteTodoFunction(() => {
-      setTodos([...todos.filter((item) => item.key != todo.key)]);
-    });
-    setDeletableTodo(todo);
+    setDeletableTodo(todo.item);
     setIsDelPopUpOpen(true);
   };
 
+  const deleteTodo = (todo) => {
+    setTodos([...todos.filter((item) => item.key !== todo.key)]);
+  };
+
+  console.log(todos);
   return (
     <View style={styles.root}>
       <View>
@@ -84,11 +85,10 @@ export default function App() {
         )}
         <AddTodo addTodo={addTodo} />
       </View>
-      {console.log(setIsDelPopUpOpen)}
       {isDelPopUpOpen ? (
         <DeletionPopUp
-          deleteTodo={deleteTodoFunction}
-          deletedTodoText={deletableTodo}
+          deleteTodo={deleteTodo}
+          deletableTodo={deletableTodo}
           setIsDelPopUpOpen={setIsDelPopUpOpen}
         />
       ) : (
