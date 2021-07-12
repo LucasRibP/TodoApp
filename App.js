@@ -4,9 +4,13 @@ import AddTodo from "./components/AddTodo";
 import Empty from "./components/Empty";
 import TodoList from "./components/TodoList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DeletionPopUp from "./components/DeletionPopUp";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
+  const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
+  const [deleteTodoFunction, setDeleteTodoFunction] = useState(() => {});
+  const [deletableTodo, setDeletableTodo] = useState({ name: "" });
 
   useEffect(() => {
     const saveTodos = async () => {
@@ -55,6 +59,14 @@ export default function App() {
     setTodos(newTodos);
   };
 
+  const openDeletionPopUp = (todo) => {
+    setDeleteTodoFunction(() => {
+      setTodos([...todos.filter((item) => item.key != todo.key)]);
+    });
+    setDeletableTodo(todo);
+    setIsDelPopUpOpen(true);
+  };
+
   return (
     <View style={styles.root}>
       <View>
@@ -64,10 +76,24 @@ export default function App() {
         {todos.length === 0 ? (
           <Empty />
         ) : (
-          <TodoList todos={todos} onPressTodo={onPressTodo} />
+          <TodoList
+            todos={todos}
+            onPressTodo={onPressTodo}
+            openDeletionPopUp={openDeletionPopUp}
+          />
         )}
         <AddTodo addTodo={addTodo} />
       </View>
+      {console.log(setIsDelPopUpOpen)}
+      {isDelPopUpOpen ? (
+        <DeletionPopUp
+          deleteTodo={deleteTodoFunction}
+          deletedTodoText={deletableTodo}
+          setIsDelPopUpOpen={setIsDelPopUpOpen}
+        />
+      ) : (
+        <View />
+      )}
     </View>
   );
 }

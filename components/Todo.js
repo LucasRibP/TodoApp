@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 
-export default Todo = ({ todo, onPressTodo }) => {
+export default Todo = ({ todo, onPressTodo, openDeletionPopUp }) => {
   const [lineSizes, setLineSizes] = useState([]);
 
   const checkAnim = useRef(
@@ -60,6 +60,7 @@ export default Todo = ({ todo, onPressTodo }) => {
       useNativeDriver: true,
       easing: Easing.in(Easing.sin),
     }).start();
+    openDeletionPopUp();
   };
 
   const onPressOut = () => {
