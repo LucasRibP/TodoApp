@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   input: {
+    flex: 1,
     fontSize: 20,
-    backgroundColor: "white",
     padding: 10,
   },
   submitButton: {
