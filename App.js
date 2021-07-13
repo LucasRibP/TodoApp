@@ -67,7 +67,6 @@ export default function App() {
     setTodos([...todos.filter((item) => item.key !== todo.key)]);
   };
 
-  console.log(todos);
   return (
     <View style={styles.root}>
       <View>
