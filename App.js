@@ -5,9 +5,11 @@ import Empty from "./components/Empty";
 import TodoList from "./components/TodoList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DeletionPopUp from "./components/DeletionPopUp";
+import TagFilter from "./components/Tags/TagFilter";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
+  const [tags, setTags] = useState([{ name: "School" }, { name: "Home" }]);
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
   const [deletableTodo, setDeletableTodo] = useState({ name: "" });
 
@@ -72,6 +74,7 @@ export default function App() {
       <View>
         <StatusBar barStyle="light-content" backgroundColor="#7a7a7a" />
       </View>
+      <TagFilter tags={tags} />
       <View style={styles.content}>
         {todos.length === 0 ? (
           <Empty />

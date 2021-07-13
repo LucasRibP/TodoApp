@@ -1,10 +1,27 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
+import Tag from "./Tag";
 
-export default TagFilter = () => {
-  return <View style={styles.componentContainer}></View>;
+export default TagFilter = ({ tags }) => {
+  return (
+    <View style={styles.componentContainer}>
+      <FlatList
+        data={tags}
+        renderItem={(item) => {
+          return (
+            <Pressable>
+              <Tag tag={item} />
+            </Pressable>
+          );
+        }}
+        keyExtractor={(item) => {
+          return item.index;
+        }}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-  componentContainer: {},
+  componentContainer: { height: "10%" },
 });
