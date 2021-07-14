@@ -10,7 +10,7 @@ import TagFilter from "./components/Tags/TagFilter";
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [tags, setTags] = useState([
-    { name: "No Tag", color: "#aaa", active: true },
+    { name: "No Tag", color: "#aaa", active: true, id: 0 },
   ]);
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
   const [deletableTodo, setDeletableTodo] = useState({});
@@ -113,7 +113,7 @@ export default function App() {
             openDeletionPopUp={openDeletionPopUp}
           />
         )}
-        <AddTodo addTodo={addTodo} />
+        <AddTodo addTodo={addTodo} tags={tags} />
       </View>
       {isDelPopUpOpen ? (
         <DeletionPopUp

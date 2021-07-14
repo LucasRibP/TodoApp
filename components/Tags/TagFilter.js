@@ -15,7 +15,7 @@ export default TagFilter = ({ tags }) => {
             </Pressable>
           );
         }}
-        keyExtractor={(item) => item.nome}
+        keyExtractor={(item) => item.id.toString()}
       />
     </View>
   );

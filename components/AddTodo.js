@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import TagSelector from "./Tags/TagSelector";
 
-export default AddTodo = ({ addTodo }) => {
+export default AddTodo = ({ addTodo, tags }) => {
   const [value, setValue] = useState("");
 
   const onSubmit = () => {
@@ -28,32 +29,44 @@ export default AddTodo = ({ addTodo }) => {
 
   return (
     <View style={styles.componentContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Add todo"
-          onChangeText={onChangeText}
-          value={value}
-        />
+      <View style={styles.tagSelectorContainer}>
+        <TagSelector tags={tags} />
       </View>
-      <Pressable
-        style={(pressed) =>
-          pressed
-            ? [styles.tagContainer, styles.tagContainerPressed]
-            : [styles.tagContainer, styles.tagContainerUnpressed]
-        }
-      >
-        <MaterialCommunityIcons name="label" color="#aaa" size={30} />
-      </Pressable>
-      <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
-        <Text>Add</Text>
-      </TouchableOpacity>
+      <View style={styles.mainBodyContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Add todo"
+            onChangeText={onChangeText}
+            value={value}
+          />
+        </View>
+        <Pressable
+          style={(pressed) =>
+            pressed
+              ? [styles.tagContainer, styles.tagContainerPressed]
+              : [styles.tagContainer, styles.tagContainerUnpressed]
+          }
+        >
+          <MaterialCommunityIcons name="label" color="#aaa" size={30} />
+        </Pressable>
+        <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
+          <Text>Add</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  componentContainer: {
+  componentContainer: {},
+  tagSelectorContainer: {
+    position: "absolute",
+    top: 0,
+    right: 60,
+    transform: [{ translateY: -303 }],
+  },
+  mainBodyContainer: {
     width: "98%",
     flexDirection: "row",
     alignItems: "center",
@@ -61,7 +74,7 @@ const styles = StyleSheet.create({
     marginBottom: "1.5%",
     overflow: "hidden",
     borderRadius: 10,
-    backgroundColor: "white",
+    backgroundColor: "#fafafa",
   },
   inputContainer: {
     flex: 1,
