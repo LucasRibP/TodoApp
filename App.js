@@ -9,15 +9,17 @@ import TagFilter from "./components/Tags/TagFilter";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
-  const [tags, setTags] = useState([{ name: "School" }, { name: "Home" }]);
+  const [tags, setTags] = useState([
+    { name: "No Tag", color: "#aaa", active: true },
+  ]);
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
-  const [deletableTodo, setDeletableTodo] = useState({ name: "" });
+  const [deletableTodo, setDeletableTodo] = useState({});
 
   useEffect(() => {
     const saveTodos = async () => {
       try {
         const jsonValue = JSON.stringify(todos);
-        await AsyncStorage.setItem("@storage_Key", jsonValue);
+        await AsyncStorage.setItem("todos", jsonValue);
       } catch (e) {
         console.log(e);
       }
@@ -26,15 +28,41 @@ export default function App() {
   }, [todos]);
 
   useEffect(() => {
+    const saveTags = async () => {
+      try {
+        const jsonValue = JSON.stringify(tags);
+        await AsyncStorage.setItem("tags", jsonValue);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    saveTags();
+  }, [tags]);
+
+  useEffect(() => {
     const loadTodos = async () => {
       try {
-        const jsonValue = await AsyncStorage.getItem("@storage_Key");
+        const jsonValue = await AsyncStorage.getItem("todos");
         const value = jsonValue != null ? JSON.parse(jsonValue) : [];
+        setTodos(value);
       } catch (e) {
         console.log(e);
       }
     };
     loadTodos();
+  }, []);
+
+  useEffect(() => {
+    const loadTags = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem("tags");
+        const value = jsonValue != null ? JSON.parse(jsonValue) : [];
+        setTags(value);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    loadTags();
   }, []);
 
   const addTodo = (todo) => {
@@ -102,12 +130,12 @@ export default function App() {
 
 const styles = StyleSheet.create({
   root: {
+    backgroundColor: "#7a7a7a",
     flex: 1,
   },
   content: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#7a7a7a",
     alignItems: "center",
     justifyContent: "space-between",
   },

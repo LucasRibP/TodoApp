@@ -6,22 +6,23 @@ export default TagFilter = ({ tags }) => {
   return (
     <View style={styles.componentContainer}>
       <FlatList
+        horizontal
         data={tags}
         renderItem={(item) => {
           return (
-            <Pressable>
+            <Pressable key={item.index}>
               <Tag tag={item} />
             </Pressable>
           );
         }}
-        keyExtractor={(item) => {
-          return item.index;
-        }}
+        keyExtractor={(item) => item.nome}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  componentContainer: { height: "10%" },
+  componentContainer: {
+    paddingHorizontal: 5,
+  },
 });
