@@ -10,8 +10,8 @@ import TagFilter from "./components/Tags/TagFilter";
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [tags, setTags] = useState([
-    { name: "No Tag", color: "#aaa", active: true, id: 0 },
-    { name: "No Tag", color: "#aaa", active: true, id: 1 },
+    { name: "No Tag", color: "#aaa", id: 0 },
+    { name: "No Tag", color: "#aaa", id: 1 },
   ]);
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
   const [deletableTodo, setDeletableTodo] = useState({});
