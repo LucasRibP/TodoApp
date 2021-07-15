@@ -1,14 +1,35 @@
-import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, FlatList, Pressable } from "react-native";
 
 export default TagSelector = ({ tags }) => {
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const toggleSelectionTag = (id) => {
+    if (selectedTags.includes(id)) {
+      setSelectedTags([...selectedTags.filter((item) => item != id)]);
+    } else {
+      setSelectedTags([...selectedTags, id]);
+    }
+  };
+
   return (
     <View style={styles.componentContainer}>
       <FlatList
         data={tags.slice(0, tags.length)}
         renderItem={(tag) => (
-          <Tag tag={tag} keyExtractor={(tag) => tag.id.toString()} />
+          <Pressable
+            style={styles.tag}
+            onPress={() => toggleSelectionTag(tag.item.id)}
+          >
+            <Tag
+              tag={tag}
+              active={selectedTags.includes(tag.item.id) ? true : false}
+            />
+          </Pressable>
         )}
+        keyExtractor={(tag) => {
+          return tag.id.toString();
+        }}
       />
     </View>
   );
@@ -20,5 +41,12 @@ const styles = StyleSheet.create({
     height: 300,
     backgroundColor: "#fafafa",
     borderRadius: 5,
+    padding: 8,
+  },
+  tag: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    borderColor: "orangered",
+    marginBottom: 6,
   },
 });

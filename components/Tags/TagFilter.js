@@ -10,8 +10,8 @@ export default TagFilter = ({ tags }) => {
         data={tags}
         renderItem={(item) => {
           return (
-            <Pressable key={item.index}>
-              <Tag tag={item} />
+            <Pressable style={styles.tag}>
+              <Tag tag={item} active={item.item.active} />
             </Pressable>
           );
         }}
@@ -24,5 +24,9 @@ export default TagFilter = ({ tags }) => {
 const styles = StyleSheet.create({
   componentContainer: {
     paddingHorizontal: 5,
+  },
+  tag: {
+    marginHorizontal: 2,
+    marginVertical: 5,
   },
 });

@@ -1,17 +1,17 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-export default Tag = ({ tag }) => {
+export default Tag = ({ tag, active }) => {
   return (
     <View
       style={[
         styles.componentContainer,
         {
           backgroundColor: tag.item.color,
-          opacity: tag.item.active ? 1 : 0.3,
+          opacity: active ? 1 : 0.3,
           transform: [
-            { scaleX: tag.item.active ? 1 : 0.9 },
-            { scaleY: tag.item.active ? 1 : 0.9 },
+            { scaleX: active ? 1 : 0.9 },
+            { scaleY: active ? 1 : 0.9 },
           ],
         },
       ]}
@@ -26,8 +26,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 8,
-    marginHorizontal: 2,
-    marginVertical: 5,
   },
   nameText: {
     fontSize: 16,
