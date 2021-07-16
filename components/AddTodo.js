@@ -10,8 +10,14 @@ import {
 } from "react-native";
 import TagSelector from "./Tags/TagSelector";
 
-export default AddTodo = ({ addTodo, tags }) => {
+export default AddTodo = ({
+  addTodo,
+  tags,
+  isTagSelectorOpen,
+  setIsTagSelectorOpen,
+}) => {
   const [value, setValue] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const onSubmit = () => {
     let today = new Date();
@@ -29,9 +35,17 @@ export default AddTodo = ({ addTodo, tags }) => {
 
   return (
     <View style={styles.componentContainer}>
-      <View style={styles.tagSelectorContainer}>
-        <TagSelector tags={tags} />
-      </View>
+      {isTagSelectorOpen ? (
+        <View style={styles.tagSelectorContainer}>
+          <TagSelector
+            tags={tags}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
+        </View>
+      ) : (
+        <></>
+      )}
       <View style={styles.mainBodyContainer}>
         <View style={styles.inputContainer}>
           <TextInput
@@ -47,6 +61,7 @@ export default AddTodo = ({ addTodo, tags }) => {
               ? [styles.tagContainer, styles.tagContainerPressed]
               : [styles.tagContainer, styles.tagContainerUnpressed]
           }
+          onPress={() => setIsTagSelectorOpen(!isTagSelectorOpen)}
         >
           <MaterialCommunityIcons name="label" color="#aaa" size={30} />
         </Pressable>
@@ -65,6 +80,7 @@ const styles = StyleSheet.create({
     top: 0,
     right: 60,
     transform: [{ translateY: -303 }],
+    zIndex: 2,
   },
   mainBodyContainer: {
     width: "98%",

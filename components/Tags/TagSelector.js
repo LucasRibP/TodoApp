@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, FlatList, Pressable } from "react-native";
 
-export default TagSelector = ({ tags }) => {
-  const [selectedTags, setSelectedTags] = useState([]);
-
+export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
   const toggleSelectionTag = (id) => {
     if (selectedTags.includes(id)) {
       setSelectedTags([...selectedTags.filter((item) => item != id)]);

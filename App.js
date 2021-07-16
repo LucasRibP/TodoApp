@@ -15,6 +15,7 @@ export default function App() {
   ]);
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
   const [deletableTodo, setDeletableTodo] = useState({});
+  const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
 
   useEffect(() => {
     const saveTodos = async () => {
@@ -114,7 +115,12 @@ export default function App() {
             openDeletionPopUp={openDeletionPopUp}
           />
         )}
-        <AddTodo addTodo={addTodo} tags={tags} />
+        <AddTodo
+          addTodo={addTodo}
+          tags={tags}
+          isTagSelectorOpen={isTagSelectorOpen}
+          setIsTagSelectorOpen={setIsTagSelectorOpen}
+        />
       </View>
       {isDelPopUpOpen ? (
         <DeletionPopUp

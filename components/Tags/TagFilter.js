@@ -4,6 +4,7 @@ import Tag from "./Tag";
 
 export default TagFilter = ({ tags }) => {
   const [activeFilters, setActiveFilters] = useState([0]);
+
   return (
     <View style={styles.componentContainer}>
       <FlatList
