@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Pressable, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Pressable,
+  Text,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 export default DeletionPopUp = ({
   deleteTodo,
@@ -8,6 +14,9 @@ export default DeletionPopUp = ({
 }) => {
   return (
     <View style={styles.componentContainer}>
+      <TouchableWithoutFeedback onPress={() => setIsDelPopUpOpen(false)}>
+        <View style={styles.fullScreenTouchHandler} />
+      </TouchableWithoutFeedback>
       <View style={styles.popUpBox}>
         <View style={styles.textContainer}>
           <Text style={styles.questionText}>
@@ -49,12 +58,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     zIndex: 200,
   },
+  fullScreenTouchHandler: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    zIndex: 210,
+  },
   popUpBox: {
     backgroundColor: "white",
     height: "40%",
     width: "80%",
     borderRadius: 10,
     overflow: "hidden",
+    zIndex: 220,
   },
   textContainer: {
     padding: "8%",
