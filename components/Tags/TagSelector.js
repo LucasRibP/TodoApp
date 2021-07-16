@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList, Pressable } from "react-native";
+import { View, StyleSheet, FlatList, Pressable, TextInput } from "react-native";
 
 export default TagSelector = ({
   tags,
@@ -8,6 +8,18 @@ export default TagSelector = ({
   tagSelectorIds,
   setTagSelectorIds,
 }) => {
+  const [searchFilter, setSearchFilter] = useState("");
+  const [choosableTags, setChoosableTags] = useState(
+    tags.slice(1, tags.length)
+  );
+
+  const onChangeSearchFilter = (text) => {
+    setSearchFilter(text);
+    setChoosableTags(
+      tags.slice(1, tags.length).filter((tag) => tag.name.includes(text))
+    );
+  };
+
   const toggleSelectionTag = (id) => {
     if (selectedTags.includes(id)) {
       setSelectedTags([...selectedTags.filter((item) => item != id)]);
@@ -16,10 +28,23 @@ export default TagSelector = ({
     }
   };
 
+  const renderTag = (tag) => (
+    <Pressable
+      style={styles.tag}
+      onPress={() => toggleSelectionTag(tag.item.id)}
+    >
+      <Tag
+        tag={tag}
+        active={selectedTags.includes(tag.item.id) ? true : false}
+      />
+    </Pressable>
+  );
+
   return (
     <View
       style={styles.componentContainer}
       ref={(component) => {
+        // This gets the reference in order to close on outside touch
         if (component) {
           const ids = component._children[0]._children.map(
             (el) => el._nativeTag
@@ -34,19 +59,15 @@ export default TagSelector = ({
         }
       }}
     >
+      <TextInput
+        style={styles.input}
+        placeholder="Search for a tag..."
+        onChangeText={onChangeSearchFilter}
+        value={searchFilter}
+      />
       <FlatList
-        data={tags.slice(0, tags.length)}
-        renderItem={(tag) => (
-          <Pressable
-            style={styles.tag}
-            onPress={() => toggleSelectionTag(tag.item.id)}
-          >
-            <Tag
-              tag={tag}
-              active={selectedTags.includes(tag.item.id) ? true : false}
-            />
-          </Pressable>
-        )}
+        data={choosableTags}
+        renderItem={renderTag}
         keyExtractor={(tag) => {
           return tag.id.toString();
         }}
@@ -63,6 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 8,
   },
+  input: { paddingBottom: 8, paddingHorizontal: 5 },
   tag: {
     flexDirection: "row",
     justifyContent: "flex-start",
