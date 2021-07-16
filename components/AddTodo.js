@@ -15,6 +15,8 @@ export default AddTodo = ({
   tags,
   isTagSelectorOpen,
   setIsTagSelectorOpen,
+  tagSelectorIds,
+  setTagSelectorIds,
 }) => {
   const [value, setValue] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
@@ -41,6 +43,8 @@ export default AddTodo = ({
             tags={tags}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
+            tagSelectorIds={tagSelectorIds}
+            setTagSelectorIds={setTagSelectorIds}
           />
         </View>
       ) : (

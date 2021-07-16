@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { View, StyleSheet, FlatList, Pressable } from "react-native";
 
-export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
+export default TagSelector = ({
+  tags,
+  selectedTags,
+  setSelectedTags,
+  tagSelectorIds,
+  setTagSelectorIds,
+}) => {
   const toggleSelectionTag = (id) => {
     if (selectedTags.includes(id)) {
       setSelectedTags([...selectedTags.filter((item) => item != id)]);
@@ -11,7 +17,23 @@ export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
   };
 
   return (
-    <View style={styles.componentContainer}>
+    <View
+      style={styles.componentContainer}
+      ref={(component) => {
+        if (component) {
+          const ids = component._children[0]._children.map(
+            (el) => el._nativeTag
+          );
+          if (
+            ids.length > 0 &&
+            (tagSelectorIds.length !== ids.length ||
+              !tagSelectorIds.includes(ids[0]))
+          ) {
+            setTagSelectorIds(ids);
+          }
+        }
+      }}
+    >
       <FlatList
         data={tags.slice(0, tags.length)}
         renderItem={(tag) => (

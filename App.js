@@ -16,6 +16,7 @@ export default function App() {
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
   const [deletableTodo, setDeletableTodo] = useState({});
   const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
+  const [tagSelectorIds, setTagSelectorIds] = useState([]);
 
   useEffect(() => {
     const saveTodos = async () => {
@@ -99,8 +100,20 @@ export default function App() {
     setTodos([...todos.filter((item) => item.key !== todo.key)]);
   };
 
+  const touchChecker = (evt) => {
+    evt.persist();
+
+    if (tagSelectorIds && tagSelectorIds.length) {
+      if (tagSelectorIds.includes(evt.target)) {
+        return;
+      }
+      setTagSelectorIds([]);
+      setIsTagSelectorOpen(false);
+    }
+  };
+
   return (
-    <View style={styles.root}>
+    <View style={styles.root} onStartShouldSetResponder={touchChecker}>
       <View>
         <StatusBar barStyle="light-content" backgroundColor="#7a7a7a" />
       </View>
@@ -120,6 +133,8 @@ export default function App() {
           tags={tags}
           isTagSelectorOpen={isTagSelectorOpen}
           setIsTagSelectorOpen={setIsTagSelectorOpen}
+          tagSelectorIds={tagSelectorIds}
+          setTagSelectorIds={setTagSelectorIds}
         />
       </View>
       {isDelPopUpOpen ? (
