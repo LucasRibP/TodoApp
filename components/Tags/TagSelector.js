@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList, Pressable, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Pressable,
+  TextInput,
+  Text,
+} from "react-native";
 
 export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
   const [searchFilter, setSearchFilter] = useState("");
@@ -42,13 +49,29 @@ export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
         onChangeText={onChangeSearchFilter}
         value={searchFilter}
       />
-      <FlatList
-        data={choosableTags}
-        renderItem={renderTag}
-        keyExtractor={(tag) => {
-          return tag.id.toString();
-        }}
-      />
+      {choosableTags.length > 0 ? (
+        <FlatList
+          data={choosableTags}
+          renderItem={renderTag}
+          keyExtractor={(tag) => {
+            return tag.id.toString();
+          }}
+        />
+      ) : (
+        <View style={styles.noTagFound}>
+          <Pressable style={styles.createNewTag}>
+            <View style={styles.newTagTextContainer}>
+              <Text style={styles.newTagText}>Create</Text>
+            </View>
+            <View style={styles.newTagContainer}>
+              <Tag
+                tag={{ item: { name: searchFilter, color: "#aaa", id: -1 } }}
+                active
+              />
+            </View>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };
@@ -65,7 +88,20 @@ const styles = StyleSheet.create({
   tag: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    borderColor: "orangered",
     marginBottom: 6,
+  },
+  noTagFound: {
+    flex: 1,
+  },
+  createNewTag: {
+    flexWrap: "nowrap",
+    alignItems: "center",
+    paddingLeft: 8,
+    flexDirection: "row",
+  },
+  newTagText: { fontSize: 16 },
+  newTagTextContainer: { marginRight: 6 },
+  newTagContainer: {
+    maxWidth: "70%",
   },
 });
