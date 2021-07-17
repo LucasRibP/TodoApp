@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Dimensions,
 } from "react-native";
 import TagSelector from "./Tags/TagSelector";
 
@@ -15,11 +16,10 @@ export default AddTodo = ({
   tags,
   isTagSelectorOpen,
   setIsTagSelectorOpen,
-  tagSelectorIds,
-  setTagSelectorIds,
 }) => {
   const [value, setValue] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
+  const { width, height } = Dimensions.get("window");
 
   const onSubmit = () => {
     let today = new Date();
@@ -38,15 +38,22 @@ export default AddTodo = ({
   return (
     <View style={styles.componentContainer}>
       {isTagSelectorOpen ? (
-        <View style={styles.tagSelectorContainer}>
-          <TagSelector
-            tags={tags}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-            tagSelectorIds={tagSelectorIds}
-            setTagSelectorIds={setTagSelectorIds}
+        <>
+          <Pressable
+            style={[
+              styles.fullScreenTouchDetector,
+              { width: width, height: height },
+            ]}
+            onPress={() => setIsTagSelectorOpen(false)}
           />
-        </View>
+          <View style={styles.tagSelectorContainer}>
+            <TagSelector
+              tags={tags}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          </View>
+        </>
       ) : (
         <></>
       )}
@@ -84,7 +91,13 @@ const styles = StyleSheet.create({
     top: 0,
     right: 60,
     transform: [{ translateY: -303 }],
-    zIndex: 2,
+    zIndex: 10,
+  },
+  fullScreenTouchDetector: {
+    bottom: 0,
+    left: 0,
+    position: "absolute",
+    zIndex: 5,
   },
   mainBodyContainer: {
     width: "98%",

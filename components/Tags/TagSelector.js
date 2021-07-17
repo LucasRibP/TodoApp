@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, FlatList, Pressable, TextInput } from "react-native";
 
-export default TagSelector = ({
-  tags,
-  selectedTags,
-  setSelectedTags,
-  tagSelectorIds,
-  setTagSelectorIds,
-}) => {
+export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
   const [searchFilter, setSearchFilter] = useState("");
   const [choosableTags, setChoosableTags] = useState(
     tags.slice(1, tags.length)
@@ -27,7 +21,7 @@ export default TagSelector = ({
       setSelectedTags([...selectedTags, id]);
     }
   };
-
+  // TODO: Fix Selector Closing
   const renderTag = (tag) => (
     <Pressable
       style={styles.tag}
@@ -41,24 +35,7 @@ export default TagSelector = ({
   );
 
   return (
-    <View
-      style={styles.componentContainer}
-      ref={(component) => {
-        // This gets the reference in order to close on outside touch
-        if (component) {
-          const ids = component._children[0]._children.map(
-            (el) => el._nativeTag
-          );
-          if (
-            ids.length > 0 &&
-            (tagSelectorIds.length !== ids.length ||
-              !tagSelectorIds.includes(ids[0]))
-          ) {
-            setTagSelectorIds(ids);
-          }
-        }
-      }}
-    >
+    <View style={styles.componentContainer}>
       <TextInput
         style={styles.input}
         placeholder="Search for a tag..."
