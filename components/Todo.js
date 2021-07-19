@@ -159,7 +159,7 @@ export default Todo = ({ todo, tags, onPressTodo, openDeletionPopUp }) => {
           <Text onTextLayout={onTextLayout}>{todo.item.text}</Text>
           <FlatList
             style={styles.tagsContainer}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id.toString()}
             data={tags
               .slice(1, tags.length)
               .filter((tag) => todo.item.tagIds.includes(tag.id))}

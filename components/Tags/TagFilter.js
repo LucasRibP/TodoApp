@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
 import Tag from "./Tag";
 
-export default TagFilter = ({ tags }) => {
-  const [activeFilters, setActiveFilters] = useState([0]);
+export default TagFilter = ({ activeFilters, setActiveFilters, tags }) => {
+  const onPressTodo = (id) => () => {
+    if (activeFilters.includes(id)) {
+      setActiveFilters(activeFilters.filter((cur_id) => cur_id != id));
+    } else {
+      setActiveFilters([...activeFilters, id]);
+    }
+  };
 
   return (
     <View style={styles.componentContainer}>
@@ -12,7 +18,7 @@ export default TagFilter = ({ tags }) => {
         data={tags}
         renderItem={(tag) => {
           return (
-            <Pressable style={styles.tag}>
+            <Pressable onPress={onPressTodo(tag.item.id)} style={styles.tag}>
               <Tag
                 tag={tag}
                 fontSize={18}

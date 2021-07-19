@@ -11,11 +11,19 @@ export default function App() {
   const [todos, setTodos] = useState([]);
   const [tags, setTags] = useState([
     { name: "No Tag", color: "#aaa", id: 0 },
-    { name: "No Tag", color: "#aaa", id: 1 },
+    { name: "Tag", color: "#ff4e4e", id: 1 },
   ]);
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
   const [deletableTodo, setDeletableTodo] = useState({});
   const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
+  const [activeTagFilters, setActiveTagFilters] = useState([0]);
+  const filteredTodos = todos.filter((todo) =>
+    activeTagFilters.every((activeTagFilter) => {
+      console.log(activeTagFilter, todo.tagIds);
+
+      return todo.tagIds.includes(activeTagFilter);
+    })
+  );
 
   useEffect(() => {
     const saveTodos = async () => {
@@ -104,13 +112,17 @@ export default function App() {
       <View>
         <StatusBar barStyle="light-content" backgroundColor="#7a7a7a" />
       </View>
-      <TagFilter tags={tags} />
+      <TagFilter
+        activeFilters={activeTagFilters}
+        setActiveFilters={setActiveTagFilters}
+        tags={tags}
+      />
       <View style={styles.content}>
-        {todos.length === 0 ? (
+        {filteredTodos.length === 0 ? (
           <Empty />
         ) : (
           <TodoList
-            todos={todos}
+            todos={filteredTodos}
             tags={tags}
             onPressTodo={onPressTodo}
             openDeletionPopUp={openDeletionPopUp}
