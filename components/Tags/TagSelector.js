@@ -29,9 +29,6 @@ export default TagSelector = ({
 
   const onChangeSearchFilter = (text) => {
     setSearchFilter(text);
-    setChoosableTags(
-      tags.slice(1, tags.length).filter((tag) => tag.name.includes(text))
-    );
   };
 
   const toggleSelectionTag = (id) => {

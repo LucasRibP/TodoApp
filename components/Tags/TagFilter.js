@@ -15,6 +15,7 @@ export default TagFilter = ({ tags }) => {
             <Pressable style={styles.tag}>
               <Tag
                 tag={tag}
+                fontSize={18}
                 active={activeFilters.includes(tag.item.id) ? true : false}
               />
             </Pressable>
