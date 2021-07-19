@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import Todo from "./Todo";
 
-export default TodoList = ({ todos, onPressTodo, openDeletionPopUp }) => {
+export default TodoList = ({ todos, tags, onPressTodo, openDeletionPopUp }) => {
   return (
     <View style={styles.componentContainer}>
       <FlatList
@@ -11,6 +11,7 @@ export default TodoList = ({ todos, onPressTodo, openDeletionPopUp }) => {
           return (
             <Todo
               todo={item}
+              tags={tags}
               onPressTodo={onPressTodo}
               openDeletionPopUp={() => openDeletionPopUp(item)}
             />

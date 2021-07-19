@@ -111,6 +111,7 @@ export default function App() {
         ) : (
           <TodoList
             todos={todos}
+            tags={tags}
             onPressTodo={onPressTodo}
             openDeletionPopUp={openDeletionPopUp}
           />

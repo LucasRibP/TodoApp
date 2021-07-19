@@ -3,6 +3,7 @@ import Checkbox from "./Checkbox";
 import {
   Animated,
   Easing,
+  FlatList,
   Pressable,
   StyleSheet,
   Text,
@@ -10,7 +11,7 @@ import {
 } from "react-native";
 import Tag from "./Tags/Tag";
 
-export default Todo = ({ todo, onPressTodo, openDeletionPopUp }) => {
+export default Todo = ({ todo, tags, onPressTodo, openDeletionPopUp }) => {
   const [lineSizes, setLineSizes] = useState([]);
 
   const checkAnim = useRef(
@@ -156,9 +157,18 @@ export default Todo = ({ todo, onPressTodo, openDeletionPopUp }) => {
         <View style={styles.infoContainer}>
           <View style={styles.strikesContainer}>{createStrikes()}</View>
           <Text onTextLayout={onTextLayout}>{todo.item.text}</Text>
-          {todo.item.tags.forEach((tag) => (
-            <Tag tag={tag} />
-          ))}
+          <FlatList
+            style={styles.tagsContainer}
+            keyExtractor={(item) => item.id}
+            data={tags.filter((tag) => todo.item.tagIds.includes(tag.id))}
+            renderItem={(tag) => {
+              return (
+                <View style={styles.tagContainer}>
+                  <Tag tag={tag} fontSize={10} active />
+                </View>
+              );
+            }}
+          />
         </View>
       </Animated.View>
     </Pressable>
@@ -175,12 +185,19 @@ const styles = StyleSheet.create({
     padding: 12,
     alignItems: "center",
   },
+  tagsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: -4,
+  },
+  tagContainer: { marginRight: 4, marginTop: 4, overflow: "visible" },
   strikesContainer: {
     position: "absolute",
     flex: 1,
   },
   infoContainer: {
-    flexDirection: "row",
+    alignContent: "flex-start",
+    flexWrap: "wrap",
     flex: 1,
     marginLeft: 10,
   },

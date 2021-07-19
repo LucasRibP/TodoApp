@@ -41,7 +41,7 @@ export default TagSelector = ({
       setSelectedTags([...selectedTags, id]);
     }
   };
-  console.log(choosableTags);
+
   const createNewTag = () => {
     setTags([
       ...tags,

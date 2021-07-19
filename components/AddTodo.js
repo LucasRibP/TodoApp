@@ -28,7 +28,7 @@ export default AddTodo = ({
       text: value,
       key: today.toISOString(),
       checked: false,
-      tags: selectedTags,
+      tagIds: selectedTags,
     });
     setValue("");
     setSelectedTags([]);

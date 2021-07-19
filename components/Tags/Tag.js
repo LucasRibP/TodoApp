@@ -1,7 +1,18 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-export default Tag = ({ tag, active }) => {
+export default Tag = ({ tag, active, fontSize = 16 }) => {
+  const styles = StyleSheet.create({
+    componentContainer: {
+      paddingHorizontal: fontSize * 0.55,
+      paddingVertical: fontSize / 3,
+      borderRadius: fontSize / 2,
+    },
+    nameText: {
+      fontSize: fontSize,
+    },
+  });
+
   return (
     <View
       style={[
@@ -16,14 +27,3 @@ export default Tag = ({ tag, active }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  componentContainer: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-  },
-  nameText: {
-    fontSize: 16,
-  },
-});
