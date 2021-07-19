@@ -6,6 +6,10 @@ export default TagFilter = ({ activeFilters, setActiveFilters, tags }) => {
   const onPressTodo = (id) => () => {
     if (activeFilters.includes(id)) {
       setActiveFilters(activeFilters.filter((cur_id) => cur_id != id));
+    } else if (activeFilters[0] == 0) {
+      setActiveFilters([id]);
+    } else if (id == 0) {
+      setActiveFilters([0]);
     } else {
       setActiveFilters([...activeFilters, id]);
     }
