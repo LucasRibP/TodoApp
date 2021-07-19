@@ -8,7 +8,12 @@ import {
   Text,
 } from "react-native";
 
-export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
+export default TagSelector = ({
+  tags,
+  setTags,
+  selectedTags,
+  setSelectedTags,
+}) => {
   const [searchFilter, setSearchFilter] = useState("");
   const [choosableTags, setChoosableTags] = useState(
     tags.slice(1, tags.length)
@@ -27,6 +32,15 @@ export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
     } else {
       setSelectedTags([...selectedTags, id]);
     }
+  };
+
+  const createNewTag = () => {
+    setTags([
+      ...tags,
+      { name: searchFilter, color: "#aaa", id: tags[tags.length - 1].id + 1 },
+    ]);
+    setSearchFilter("");
+    setChoosableTags(tags.slice(1, tags.length));
   };
   // TODO: Fix Selector Closing
   const renderTag = (tag) => (
@@ -59,7 +73,7 @@ export default TagSelector = ({ tags, selectedTags, setSelectedTags }) => {
         />
       ) : (
         <View style={styles.noTagFound}>
-          <Pressable style={styles.createNewTag}>
+          <Pressable onPress={createNewTag} style={styles.createNewTag}>
             <View style={styles.newTagTextContainer}>
               <Text style={styles.newTagText}>Create</Text>
             </View>

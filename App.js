@@ -117,6 +117,7 @@ export default function App() {
         )}
         <AddTodo
           addTodo={addTodo}
+          setTags={setTags}
           tags={tags}
           isTagSelectorOpen={isTagSelectorOpen}
           setIsTagSelectorOpen={setIsTagSelectorOpen}

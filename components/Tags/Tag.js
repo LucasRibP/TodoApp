@@ -9,10 +9,6 @@ export default Tag = ({ tag, active }) => {
         {
           backgroundColor: tag.item.color,
           opacity: active ? 1 : 0.3,
-          transform: [
-            { scaleX: active ? 1 : 0.9 },
-            { scaleY: active ? 1 : 0.9 },
-          ],
         },
       ]}
     >
