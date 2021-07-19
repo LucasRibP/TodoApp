@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
+import Tag from "./Tags/Tag";
 
 export default Todo = ({ todo, onPressTodo, openDeletionPopUp }) => {
   const [lineSizes, setLineSizes] = useState([]);
@@ -152,9 +153,12 @@ export default Todo = ({ todo, onPressTodo, openDeletionPopUp }) => {
         }}
       >
         <Checkbox checkAnim={checkAnim} />
-        <View style={styles.textContainer}>
+        <View style={styles.infoContainer}>
           <View style={styles.strikesContainer}>{createStrikes()}</View>
           <Text onTextLayout={onTextLayout}>{todo.item.text}</Text>
+          {todo.item.tags.forEach((tag) => (
+            <Tag tag={tag} />
+          ))}
         </View>
       </Animated.View>
     </Pressable>
@@ -175,7 +179,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     flex: 1,
   },
-  textContainer: {
+  infoContainer: {
+    flexDirection: "row",
     flex: 1,
     marginLeft: 10,
   },

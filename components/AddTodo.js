@@ -28,8 +28,10 @@ export default AddTodo = ({
       text: value,
       key: today.toISOString(),
       checked: false,
+      tags: selectedTags,
     });
     setValue("");
+    setSelectedTags([]);
   };
 
   const onChangeText = (text) => {

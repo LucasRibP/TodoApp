@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -19,6 +19,14 @@ export default TagSelector = ({
     tags.slice(1, tags.length)
   );
 
+  useEffect(() => {
+    setChoosableTags(
+      tags
+        .slice(1, tags.length)
+        .filter((tag) => tag.name.includes(searchFilter))
+    );
+  }, [tags]);
+
   const onChangeSearchFilter = (text) => {
     setSearchFilter(text);
     setChoosableTags(
@@ -33,14 +41,13 @@ export default TagSelector = ({
       setSelectedTags([...selectedTags, id]);
     }
   };
-
+  console.log(choosableTags);
   const createNewTag = () => {
     setTags([
       ...tags,
       { name: searchFilter, color: "#aaa", id: tags[tags.length - 1].id + 1 },
     ]);
     setSearchFilter("");
-    setChoosableTags(tags.slice(1, tags.length));
   };
   // TODO: Fix Selector Closing
   const renderTag = (tag) => (
