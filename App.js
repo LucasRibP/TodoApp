@@ -6,6 +6,7 @@ import TodoList from "./components/TodoList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DeletionPopUp from "./components/DeletionPopUp";
 import TagFilter from "./components/Tags/TagFilter";
+import ColorSelector from "./components/Tags/ColorSelector";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
@@ -117,6 +118,7 @@ export default function App() {
         setActiveFilters={setActiveTagFilters}
         tags={tags}
       />
+      <ColorSelector />
       <View style={styles.content}>
         {filteredTodos.length === 0 ? (
           <Empty />
