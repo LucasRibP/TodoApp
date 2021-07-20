@@ -9,8 +9,7 @@ export default ColorSelector = () => {
 
   const onPress = (evt) => {
     const percTapped = evt.nativeEvent.locationX / componentWidth;
-    if (percTapped < 0) setCurrentPosition(0);
-    else if (percTapped > 1) setCurrentPosition(1);
+    if (percTapped > 0.9) setCurrentPosition(0.9);
     else setCurrentPosition(percTapped);
   };
   return (
@@ -24,7 +23,7 @@ export default ColorSelector = () => {
           styles.colorMarker,
           {
             left: `${currentPosition * 100}%`,
-            backgroundColor: `hsl(${currentPosition * 360}, 100%, 75%)`,
+            backgroundColor: `hsl(${(currentPosition / 0.9) * 360}, 100%, 75%)`,
           },
         ]}
       />
