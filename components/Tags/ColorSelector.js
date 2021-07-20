@@ -5,13 +5,25 @@ import { View, Pressable, StyleSheet } from "react-native";
 // TODO: IMPLEMENT COLOR SELECTOR USING HSV COLOR SYSTEM
 export default ColorSelector = () => {
   const [currentPosition, setCurrentPosition] = useState(0.5);
+  const [componentWidth, setComponentWidth] = useState(10);
+
+  const onPress = (evt) => {
+    const percTapped = evt.nativeEvent.locationX / componentWidth;
+    if (percTapped < 0) setCurrentPosition(0);
+    else if (percTapped > 1) setCurrentPosition(1);
+    else setCurrentPosition(percTapped);
+  };
   return (
-    <Pressable style={styles.componentContainer}>
+    <Pressable
+      onPress={onPress}
+      onLayout={(evt) => setComponentWidth(evt.nativeEvent.layout.width)}
+      style={styles.componentContainer}
+    >
       <View
         style={[
           styles.colorMarker,
           {
-            left: `${currentPosition * 100 - 5}%`,
+            left: `${currentPosition * 100}%`,
             backgroundColor: `hsl(${currentPosition * 360}, 100%, 75%)`,
           },
         ]}
@@ -41,11 +53,33 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  gradient: { width: "90%", height: "80%" },
+  gradient: {
+    width: "90%",
+    height: "80%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
+  },
   colorMarker: {
     position: "absolute",
     height: "100%",
     width: "10%",
     zIndex: 2,
+    borderRadius: 100,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 5,
   },
 });
