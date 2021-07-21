@@ -5,6 +5,7 @@ import { View, Pressable, StyleSheet } from "react-native";
 // TODO: IMPLEMENT COLOR SELECTOR USING HSV COLOR SYSTEM
 export default ColorSelector = () => {
   const [currentPosition, setCurrentPosition] = useState(0.5);
+  const [markerWidth, setMarkerWidth] = useState(1);
   const [componentWidth, setComponentWidth] = useState(10);
 
   const onPress = (evt) => {
@@ -12,13 +13,20 @@ export default ColorSelector = () => {
     if (percTapped > 0.9) setCurrentPosition(0.9);
     else setCurrentPosition(percTapped);
   };
+
+  const onPressMarker = (evt) => {
+    const percTapped = evt.nativeEvent.locationX / markerWidth - 0.5;
+    setCurrentPosition(currentPosition + percTapped / 9);
+  };
   return (
     <Pressable
       onPress={onPress}
       onLayout={(evt) => setComponentWidth(evt.nativeEvent.layout.width)}
       style={styles.componentContainer}
     >
-      <View
+      <Pressable
+        onPress={onPressMarker}
+        onLayout={(evt) => setMarkerWidth(evt.nativeEvent.layout.width)}
         style={[
           styles.colorMarker,
           {
