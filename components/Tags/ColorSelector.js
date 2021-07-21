@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, Pressable, StyleSheet } from "react-native";
 
 // TODO: IMPLEMENT COLOR SELECTOR USING HSV COLOR SYSTEM
-export default ColorSelector = () => {
+export default ColorSelector = ({ setColor }) => {
   const [currentPosition, setCurrentPosition] = useState(0.5);
   const [markerWidth, setMarkerWidth] = useState(1);
   const [componentWidth, setComponentWidth] = useState(10);
+
+  useEffect(() => {
+    setTagColor(`hsl(${(currentPosition / 0.9) * 360}, 100%, 75%)`);
+  }, [currentPosition]);
 
   const onPress = (evt) => {
     const percTapped = evt.nativeEvent.locationX / componentWidth;
@@ -56,7 +60,6 @@ export default ColorSelector = () => {
 const styles = StyleSheet.create({
   componentContainer: {
     width: "100%",
-    height: 200,
     justifyContent: "center",
     alignItems: "center",
   },

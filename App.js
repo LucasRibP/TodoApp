@@ -118,7 +118,6 @@ export default function App() {
         setActiveFilters={setActiveTagFilters}
         tags={tags}
       />
-      <ColorSelector />
       <View style={styles.content}>
         {filteredTodos.length === 0 ? (
           <Empty />

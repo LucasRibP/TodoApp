@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import ColorSelector from "./ColorSelector";
 
-export default TagEditor = (tags, setTags, editedTagID) => {
+export default TagEditor = ({ tags, setTags, editedTagID }) => {
   const [textValue, setTextValue] = useState("");
   const onChangeText = (text) => {};
   const setTagColor = (color) => {};

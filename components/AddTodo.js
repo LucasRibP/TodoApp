@@ -47,7 +47,9 @@ export default AddTodo = ({
               styles.fullScreenTouchDetector,
               { width: width, height: height },
             ]}
-            onPress={() => setIsTagSelectorOpen(false)}
+            onPress={() => {
+              setIsTagSelectorOpen(false);
+            }}
           />
           <View style={styles.tagSelectorContainer}>
             <TagSelector

@@ -7,6 +7,7 @@ import {
   TextInput,
   Text,
 } from "react-native";
+import TagEditor from "./TagEditor";
 
 export default TagSelector = ({
   tags,
@@ -18,6 +19,8 @@ export default TagSelector = ({
   const [choosableTags, setChoosableTags] = useState(
     tags.slice(1, tags.length)
   );
+
+  const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
 
   useEffect(() => {
     setChoosableTags(
@@ -61,6 +64,9 @@ export default TagSelector = ({
 
   return (
     <View style={styles.componentContainer}>
+      <View style={styles.tagEditorContainer}>
+        <TagEditor />
+      </View>
       <TextInput
         style={styles.input}
         placeholder="Search for a tag..."
@@ -101,7 +107,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafa",
     borderRadius: 5,
     padding: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
+  tagEditorContainer: { position: "absolute", zIndex: 20 },
   input: { paddingBottom: 8, paddingHorizontal: 5 },
   tag: {
     flexDirection: "row",
