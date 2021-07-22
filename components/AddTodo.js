@@ -94,9 +94,8 @@ const styles = StyleSheet.create({
   componentContainer: {},
   tagSelectorContainer: {
     position: "absolute",
-    top: 0,
+    bottom: "110%",
     right: 60,
-    transform: [{ translateY: -303 }],
     zIndex: 10,
   },
   fullScreenTouchDetector: {

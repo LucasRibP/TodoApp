@@ -72,7 +72,6 @@ export default TagSelector = ({
   );
 
   const updateTagValues = (id) => (newParams) => {
-    console.log(id);
     const newTags = [...tags];
     const index = newTags.findIndex((item) => item.id == id);
     newTags[index] = { ...newTags[index], ...newParams };
@@ -83,65 +82,72 @@ export default TagSelector = ({
     <View style={styles.componentContainer}>
       {isTagEditorOpen ? (
         <View style={styles.tagEditorContainer}>
-          <TagEditor
-            initialText={tagBeingEdited.name}
-            updateTagValues={updateTagValues(tagBeingEdited.id)}
-          />
+          <TagEditor updateTagValues={updateTagValues(tagBeingEdited.id)} />
         </View>
       ) : (
         <></>
       )}
-      <TextInput
-        style={styles.input}
-        placeholder="Search for a tag..."
-        onChangeText={onChangeSearchFilter}
-        value={searchFilter}
-      />
-      {choosableTags.length > 0 ? (
-        <FlatList
-          data={choosableTags}
-          renderItem={renderTag}
-          keyExtractor={(tag) => {
-            return tag.id.toString();
-          }}
+      <View style={styles.tagSelectorContainer}>
+        {isTagEditorOpen ? (
+          <Pressable
+            style={styles.TagSelectorTouchDetector}
+            onPress={() => setIsTagEditorOpen(false)}
+          />
+        ) : (
+          <></>
+        )}
+        <TextInput
+          style={styles.input}
+          placeholder="Search for a tag..."
+          onChangeText={onChangeSearchFilter}
+          value={searchFilter}
         />
-      ) : (
-        <View style={styles.noTagFound}>
-          <Pressable onPress={createNewTag} style={styles.createNewTag}>
-            <View style={styles.newTagTextContainer}>
-              <Text style={styles.newTagText}>Create</Text>
-            </View>
-            <View style={styles.newTagContainer}>
-              <Tag
-                tag={{ item: { name: searchFilter, color: "#aaa", id: -1 } }}
-                active
-              />
-            </View>
-          </Pressable>
-        </View>
-      )}
+        {choosableTags.length > 0 ? (
+          <FlatList
+            data={choosableTags}
+            renderItem={renderTag}
+            keyExtractor={(tag) => {
+              return tag.id.toString();
+            }}
+          />
+        ) : (
+          <View style={styles.noTagFound}>
+            <Pressable onPress={createNewTag} style={styles.createNewTag}>
+              <View style={styles.newTagTextContainer}>
+                <Text style={styles.newTagText}>Create</Text>
+              </View>
+              <View style={styles.newTagContainer}>
+                <Tag
+                  tag={{ item: { name: searchFilter, color: "#aaa", id: -1 } }}
+                  active
+                />
+              </View>
+            </Pressable>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  componentContainer: {
+  componentContainer: {},
+  tagSelectorContainer: {
     width: 200,
     height: 300,
     backgroundColor: "#fafafa",
     borderRadius: 5,
     padding: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 2,
   },
-  tagEditorContainer: { position: "absolute", zIndex: 20 },
+  tagEditorContainer: { zIndex: 20, marginBottom: 5 },
+  TagSelectorTouchDetector: {
+    position: "absolute",
+    zIndex: 15,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   input: { paddingBottom: 8, paddingHorizontal: 5 },
   tag: {
     flexDirection: "row",
