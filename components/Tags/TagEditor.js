@@ -1,11 +1,19 @@
-import React, { useState } from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, TextInput, Button } from "react-native";
 import ColorSelector from "./ColorSelector";
 
-export default TagEditor = ({ tags, setTags, editedTagID }) => {
-  const [textValue, setTextValue] = useState("");
-  const onChangeText = (text) => {};
-  const setTagColor = (color) => {};
+export default TagEditor = ({ initialText, updateTagValues }) => {
+  const [textValue, setTextValue] = useState(initialText);
+  useEffect(() => {
+    updateTagValues({ name: textValue });
+  }, [text]);
+
+  const onChangeText = (text) => {
+    setTextValue(text);
+  };
+  const setTagColor = (color) => {
+    updateTagValues({ color: color });
+  };
 
   return (
     <View style={styles.componentContainer}>
@@ -16,7 +24,7 @@ export default TagEditor = ({ tags, setTags, editedTagID }) => {
         value={textValue}
       />
       <View style={styles.colorSelectorContainer}>
-        <ColorSelector setColor={setTagColor} />
+        <ColorSelector setColor={setTagColor} setColor={setTagColor} />
       </View>
     </View>
   );

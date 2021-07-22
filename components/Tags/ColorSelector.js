@@ -9,7 +9,7 @@ export default ColorSelector = ({ setColor }) => {
   const [componentWidth, setComponentWidth] = useState(10);
 
   useEffect(() => {
-    setTagColor(`hsl(${(currentPosition / 0.9) * 360}, 100%, 75%)`);
+    setColor(`hsl(${(currentPosition / 0.9) * 360}, 100%, 075%)`);
   }, [currentPosition]);
 
   const onPress = (evt) => {

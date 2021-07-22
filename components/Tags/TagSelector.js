@@ -19,6 +19,7 @@ export default TagSelector = ({
   const [choosableTags, setChoosableTags] = useState(
     tags.slice(1, tags.length)
   );
+  const [tagBeingEdited, setTagBeingEdited] = useState({});
 
   const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
 
@@ -62,11 +63,25 @@ export default TagSelector = ({
     </Pressable>
   );
 
+  const updateTagValues = (id) => (newParams) => {
+    const newTags = [...tags];
+    const index = newTags.findIndex((item) => item.id == id);
+    newTags[index] = { ...newTags[index], ...newParams };
+    setTags(newTags);
+  };
+
   return (
     <View style={styles.componentContainer}>
-      <View style={styles.tagEditorContainer}>
-        <TagEditor />
-      </View>
+      {isTagEditorOpen ? (
+        <View style={styles.tagEditorContainer}>
+          <TagEditor
+            initialText={tagBeingEdited.name}
+            updateTagValues={updateTagValues(tagBeingEdited.id)}
+          />
+        </View>
+      ) : (
+        <></>
+      )}
       <TextInput
         style={styles.input}
         placeholder="Search for a tag..."
