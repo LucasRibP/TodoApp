@@ -6,10 +6,10 @@ export default TagEditor = ({ initialText, updateTagValues }) => {
   const [textValue, setTextValue] = useState(initialText);
   useEffect(() => {
     updateTagValues({ name: textValue });
-  }, [text]);
+  }, [textValue]);
 
-  const onChangeText = (text) => {
-    setTextValue(text);
+  const onChangeText = (newTextValue) => {
+    setTextValue(newTextValue);
   };
   const setTagColor = (color) => {
     updateTagValues({ color: color });

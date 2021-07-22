@@ -19,7 +19,11 @@ export default TagSelector = ({
   const [choosableTags, setChoosableTags] = useState(
     tags.slice(1, tags.length)
   );
-  const [tagBeingEdited, setTagBeingEdited] = useState({});
+  const [tagBeingEdited, setTagBeingEdited] = useState({
+    name: "",
+    color: "",
+    id: -1,
+  });
 
   const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
 
@@ -55,6 +59,10 @@ export default TagSelector = ({
     <Pressable
       style={styles.tag}
       onPress={() => toggleSelectionTag(tag.item.id)}
+      onLongPress={() => {
+        setTagBeingEdited(tag.item);
+        setIsTagEditorOpen(true);
+      }}
     >
       <Tag
         tag={tag}
@@ -64,6 +72,7 @@ export default TagSelector = ({
   );
 
   const updateTagValues = (id) => (newParams) => {
+    console.log(id);
     const newTags = [...tags];
     const index = newTags.findIndex((item) => item.id == id);
     newTags[index] = { ...newTags[index], ...newParams };
