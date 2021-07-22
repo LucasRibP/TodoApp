@@ -14,6 +14,8 @@ export default TagSelector = ({
   setTags,
   selectedTags,
   setSelectedTags,
+  isTagEditorOpen,
+  setIsTagEditorOpen,
 }) => {
   const [searchFilter, setSearchFilter] = useState("");
   const [choosableTags, setChoosableTags] = useState(
@@ -24,8 +26,6 @@ export default TagSelector = ({
     color: "",
     id: -1,
   });
-
-  const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
 
   useEffect(() => {
     setChoosableTags(

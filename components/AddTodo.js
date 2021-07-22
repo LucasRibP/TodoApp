@@ -20,6 +20,8 @@ export default AddTodo = ({
 }) => {
   const [value, setValue] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
+  const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
+
   const { width, height } = Dimensions.get("window");
 
   const onSubmit = () => {
@@ -48,11 +50,15 @@ export default AddTodo = ({
               { width: width, height: height },
             ]}
             onPress={() => {
-              setIsTagSelectorOpen(false);
+              isTagEditorOpen
+                ? setIsTagEditorOpen(false)
+                : setIsTagSelectorOpen(false);
             }}
           />
           <View style={styles.tagSelectorContainer}>
             <TagSelector
+              isTagEditorOpen={isTagEditorOpen}
+              setIsTagEditorOpen={setIsTagEditorOpen}
               tags={tags}
               setTags={setTags}
               selectedTags={selectedTags}
