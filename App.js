@@ -10,10 +10,7 @@ import ColorSelector from "./components/Tags/ColorSelector";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
-  const [tags, setTags] = useState([
-    { name: "No Tag", color: "#aaa", id: 0 },
-    { name: "Tag", color: "#ff4e4e", id: 1 },
-  ]);
+  const [tags, setTags] = useState([{ name: "No Tag", color: "#aaa", id: 0 }]);
   const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
   const [deletableTodo, setDeletableTodo] = useState({});
   const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);

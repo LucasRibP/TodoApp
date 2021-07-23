@@ -98,7 +98,7 @@ export default TagSelector = ({
         )}
         <TextInput
           style={styles.input}
-          placeholder="Search for a tag..."
+          placeholder="Search for or create a tag..."
           onChangeText={onChangeSearchFilter}
           value={searchFilter}
         />
@@ -110,7 +110,7 @@ export default TagSelector = ({
               return tag.id.toString();
             }}
           />
-        ) : (
+        ) : searchFilter.length > 0 ? (
           <View style={styles.noTagFound}>
             <Pressable onPress={createNewTag} style={styles.createNewTag}>
               <View style={styles.newTagTextContainer}>
@@ -123,6 +123,12 @@ export default TagSelector = ({
                 />
               </View>
             </Pressable>
+          </View>
+        ) : (
+          <View style={styles.noExistantTag}>
+            <Text style={styles.noExistantTagText}>
+              Use the text field above to create your first tag!
+            </Text>
           </View>
         )}
       </View>
@@ -168,4 +174,6 @@ const styles = StyleSheet.create({
   newTagContainer: {
     maxWidth: "70%",
   },
+  noExistantTag: { paddingHorizontal: 5 },
+  noExistantTagText: { fontSize: 14 },
 });

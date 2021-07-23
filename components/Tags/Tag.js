@@ -5,7 +5,7 @@ export default Tag = ({ tag, active, fontSize = 16 }) => {
   const fadeAnim = useRef(new Animated.Value(active ? 1 : 0.3)).current;
 
   useEffect(() => {
-    if (active) {
+    if (!active) {
       Animated.timing(fadeAnim, {
         toValue: 0.3,
         duration: 200,
