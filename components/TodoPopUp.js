@@ -2,14 +2,16 @@ import React from "react";
 import { StyleSheet, View, Pressable, Text } from "react-native";
 
 export default TodoPopUp = ({ popUpText, todo, buttons }) => {
-  buttonComponents = buttons.map((button) => (
+  buttonComponents = buttons.map((button, index) => (
     <Pressable
+      key={index.toString()}
       style={[styles.button, { backgroundColor: button.color }]}
       onPress={button.onPress}
     >
       <Text style={styles.buttonText}>{button.text}</Text>
     </Pressable>
   ));
+
   return (
     <View style={styles.popUpBox}>
       <View style={styles.textContainer}>

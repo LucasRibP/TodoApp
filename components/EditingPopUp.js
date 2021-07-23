@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -6,18 +6,67 @@ import {
   Text,
   TouchableWithoutFeedback,
 } from "react-native";
+import TodoPopUp from "./TodoPopUp";
 
 export default EditingPopUp = ({
   deleteTodo,
   editableTodo,
   setIsEditPopUpOpen,
 }) => {
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+
+  const curPopUp = deleteConfirmationOpen ? (
+    <TodoPopUp
+      popUpText={"Are you sure you want to delete the following to-do?"}
+      todo={editableTodo}
+      buttons={[
+        {
+          text: "CANCEL",
+          color: "grey",
+          onPress: () => setDeleteConfirmationOpen(false),
+        },
+        {
+          text: "DELETE",
+          color: "hsl(4, 82%, 56%)",
+          onPress: () => {
+            deleteTodo(editableTodo);
+            setIsEditPopUpOpen(false);
+          },
+        },
+      ]}
+    />
+  ) : (
+    <TodoPopUp
+      popUpText={"What do you want to do the following to-do?"}
+      todo={editableTodo}
+      buttons={[
+        {
+          text: "CANCEL",
+          color: "grey",
+          onPress: () => setIsEditPopUpOpen(false),
+        },
+
+        { text: "EDIT", color: "hsl(205, 82%, 56%)", onPress: () => {} },
+        {
+          text: "DELETE",
+          color: "hsl(4, 82%, 56%)",
+          onPress: () => setDeleteConfirmationOpen(true),
+        },
+      ]}
+    />
+  );
+
   return (
     <View style={styles.componentContainer}>
       <TouchableWithoutFeedback onPress={() => setIsEditPopUpOpen(false)}>
         <View style={styles.fullScreenTouchHandler} />
       </TouchableWithoutFeedback>
-      <View style={styles.popUpBox}>
+      {curPopUp}
+    </View>
+  );
+};
+/* 
+<View style={styles.popUpBox}>
         <View style={styles.textContainer}>
           <Text style={styles.questionText}>
             Are you sure you want to delete the following to-do?
@@ -48,10 +97,7 @@ export default EditingPopUp = ({
           </Pressable>
         </View>
       </View>
-    </View>
-  );
-};
-
+*/
 const styles = StyleSheet.create({
   componentContainer: {
     position: "absolute",
