@@ -32,6 +32,12 @@ export default EditingPopUp = ({
             <Text style={styles.buttonText}>CANCEL</Text>
           </Pressable>
           <Pressable
+            style={styles.editButton}
+            onPress={(e) => setIsEditPopUpOpen(false)}
+          >
+            <Text style={styles.buttonText}>EDIT</Text>
+          </Pressable>
+          <Pressable
             style={styles.deleteButton}
             onPress={(e) => {
               deleteTodo(editableTodo);
@@ -93,11 +99,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "grey",
   },
+  editButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "hsl(205, 82%, 56%)",
+  },
   deleteButton: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "red",
+    backgroundColor: "hsl(4, 82%, 56%)",
   },
   buttonText: {
     color: "#eee",
