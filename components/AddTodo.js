@@ -146,6 +146,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   tagContainerPressed: {},
-  tagContainerUnpressed: {},
+  tagContainerUnpressed: { backgroundColor: "grey" },
   tag: {},
 });
