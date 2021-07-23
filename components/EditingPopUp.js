@@ -65,39 +65,7 @@ export default EditingPopUp = ({
     </View>
   );
 };
-/* 
-<View style={styles.popUpBox}>
-        <View style={styles.textContainer}>
-          <Text style={styles.questionText}>
-            Are you sure you want to delete the following to-do?
-          </Text>
-          <Text style={styles.todoText}>"{editableTodo.text}"</Text>
-        </View>
-        <View style={styles.buttonsContainer}>
-          <Pressable
-            style={styles.cancelButton}
-            onPress={(e) => setIsEditPopUpOpen(false)}
-          >
-            <Text style={styles.buttonText}>CANCEL</Text>
-          </Pressable>
-          <Pressable
-            style={styles.editButton}
-            onPress={(e) => setIsEditPopUpOpen(false)}
-          >
-            <Text style={styles.buttonText}>EDIT</Text>
-          </Pressable>
-          <Pressable
-            style={styles.deleteButton}
-            onPress={(e) => {
-              deleteTodo(editableTodo);
-              setIsEditPopUpOpen(false);
-            }}
-          >
-            <Text style={styles.buttonText}>DELETE</Text>
-          </Pressable>
-        </View>
-      </View>
-*/
+
 const styles = StyleSheet.create({
   componentContainer: {
     position: "absolute",
