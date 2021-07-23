@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, TextInput, Text } from "react-native";
 import ColorSelector from "./ColorSelector";
 
-export default TagEditor = ({ updateTagValues }) => {
-  const [textValue, setTextValue] = useState("");
+export default TagEditor = ({ initialName, updateTagValues }) => {
+  const [textValue, setTextValue] = useState(initialName ? initialName : "");
   useEffect(() => {
     updateTagValues({ name: textValue });
   }, [textValue]);
@@ -17,6 +17,7 @@ export default TagEditor = ({ updateTagValues }) => {
 
   return (
     <View style={styles.componentContainer}>
+      <Text style={styles.inputLabel}>Name:</Text>
       <TextInput
         style={styles.input}
         placeholder="New tag name..."
@@ -33,11 +34,12 @@ export default TagEditor = ({ updateTagValues }) => {
 const styles = StyleSheet.create({
   componentContainer: {
     width: 200,
-    height: 100,
+    height: 130,
     backgroundColor: "#fafafa",
     borderRadius: 5,
     padding: 8,
   },
   input: { paddingLeft: 10, paddingVertical: 4 },
-  colorSelectorContainer: { paddingBottom: 15 },
+  inputLabel: { marginTop: 2, marginLeft: 10 },
+  colorSelectorContainer: { paddingBottom: 30 },
 });

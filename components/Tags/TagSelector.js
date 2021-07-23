@@ -82,7 +82,10 @@ export default TagSelector = ({
     <View style={styles.componentContainer}>
       {isTagEditorOpen ? (
         <View style={styles.tagEditorContainer}>
-          <TagEditor updateTagValues={updateTagValues(tagBeingEdited.id)} />
+          <TagEditor
+            initialName={tagBeingEdited.name}
+            updateTagValues={updateTagValues(tagBeingEdited.id)}
+          />
         </View>
       ) : (
         <></>
