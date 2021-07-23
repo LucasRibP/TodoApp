@@ -4,21 +4,18 @@ import AddTodo from "./components/AddTodo";
 import Empty from "./components/Empty";
 import TodoList from "./components/TodoList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import DeletionPopUp from "./components/DeletionPopUp";
+import EditingPopUp from "./components/EditingPopUp";
 import TagFilter from "./components/Tags/TagFilter";
-import ColorSelector from "./components/Tags/ColorSelector";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [tags, setTags] = useState([{ name: "No Tag", color: "#aaa", id: 0 }]);
-  const [isDelPopUpOpen, setIsDelPopUpOpen] = useState(false);
-  const [deletableTodo, setDeletableTodo] = useState({});
+  const [isEditPopUpOpen, setIsEditPopUpOpen] = useState(false);
+  const [editableTodo, setEditableTodo] = useState({});
   const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
   const [activeTagFilters, setActiveTagFilters] = useState([0]);
   const filteredTodos = todos.filter((todo) =>
     activeTagFilters.every((activeTagFilter) => {
-      console.log(activeTagFilter, todo.tagIds);
-
       return todo.tagIds.includes(activeTagFilter);
     })
   );
@@ -97,8 +94,8 @@ export default function App() {
   };
 
   const openDeletionPopUp = (todo) => {
-    setDeletableTodo(todo.item);
-    setIsDelPopUpOpen(true);
+    setEditableTodo(todo.item);
+    setIsEditPopUpOpen(true);
   };
 
   const deleteTodo = (todo) => {
@@ -134,11 +131,11 @@ export default function App() {
           setIsTagSelectorOpen={setIsTagSelectorOpen}
         />
       </View>
-      {isDelPopUpOpen ? (
-        <DeletionPopUp
+      {isEditPopUpOpen ? (
+        <EditingPopUp
           deleteTodo={deleteTodo}
-          deletableTodo={deletableTodo}
-          setIsDelPopUpOpen={setIsDelPopUpOpen}
+          editableTodo={editableTodo}
+          setIsEditPopUpOpen={setIsEditPopUpOpen}
         />
       ) : (
         <View />

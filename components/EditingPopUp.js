@@ -7,14 +7,14 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-export default DeletionPopUp = ({
+export default EditingPopUp = ({
   deleteTodo,
-  deletableTodo,
-  setIsDelPopUpOpen,
+  editableTodo,
+  setIsEditPopUpOpen,
 }) => {
   return (
     <View style={styles.componentContainer}>
-      <TouchableWithoutFeedback onPress={() => setIsDelPopUpOpen(false)}>
+      <TouchableWithoutFeedback onPress={() => setIsEditPopUpOpen(false)}>
         <View style={styles.fullScreenTouchHandler} />
       </TouchableWithoutFeedback>
       <View style={styles.popUpBox}>
@@ -22,20 +22,20 @@ export default DeletionPopUp = ({
           <Text style={styles.questionText}>
             Are you sure you want to delete the following to-do?
           </Text>
-          <Text style={styles.todoText}>"{deletableTodo.text}"</Text>
+          <Text style={styles.todoText}>"{editableTodo.text}"</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <Pressable
             style={styles.cancelButton}
-            onPress={(e) => setIsDelPopUpOpen(false)}
+            onPress={(e) => setIsEditPopUpOpen(false)}
           >
             <Text style={styles.buttonText}>CANCEL</Text>
           </Pressable>
           <Pressable
             style={styles.deleteButton}
             onPress={(e) => {
-              deleteTodo(deletableTodo);
-              setIsDelPopUpOpen(false);
+              deleteTodo(editableTodo);
+              setIsEditPopUpOpen(false);
             }}
           >
             <Text style={styles.buttonText}>DELETE</Text>
