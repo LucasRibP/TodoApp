@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, View, TouchableWithoutFeedback, Text } from "react-native";
 import TodoPopUp from "./TodoPopUp";
 
 export default EditingPopUp = ({
@@ -8,6 +8,7 @@ export default EditingPopUp = ({
   setIsEditPopUpOpen,
 }) => {
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+  const [todoEditorOpen, setTodoEditorOpen] = useState(false);
 
   const curPopUp = deleteConfirmationOpen ? (
     <TodoPopUp
@@ -29,6 +30,19 @@ export default EditingPopUp = ({
         },
       ]}
     />
+  ) : todoEditorOpen ? (
+    <TodoPopUp
+      newMainView={<Text>I'm a placeholder</Text>}
+      buttons={[
+        {
+          text: "CANCEL",
+          color: "grey",
+          onPress: () => setTodoEditorOpen(false),
+        },
+
+        { text: "CONFIRM", color: "hsl(205, 82%, 56%)", onPress: () => {} },
+      ]}
+    />
   ) : (
     <TodoPopUp
       popUpText={"What do you want to do the following to-do?"}
@@ -40,7 +54,13 @@ export default EditingPopUp = ({
           onPress: () => setIsEditPopUpOpen(false),
         },
 
-        { text: "EDIT", color: "hsl(205, 82%, 56%)", onPress: () => {} },
+        {
+          text: "EDIT",
+          color: "hsl(205, 82%, 56%)",
+          onPress: () => {
+            setTodoEditorOpen(true);
+          },
+        },
         {
           text: "DELETE",
           color: "hsl(4, 82%, 56%)",

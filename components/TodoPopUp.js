@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Pressable, Text } from "react-native";
 
-export default TodoPopUp = ({ popUpText, todo, buttons }) => {
+export default TodoPopUp = ({ popUpText, todo, buttons, newMainView }) => {
   buttonComponents = buttons.map((button, index) => (
     <Pressable
       key={index.toString()}
@@ -12,12 +12,18 @@ export default TodoPopUp = ({ popUpText, todo, buttons }) => {
     </Pressable>
   ));
 
+  const mainView = newMainView ? (
+    newMainView
+  ) : (
+    <View style={styles.mainView}>
+      <Text style={styles.questionText}>{popUpText}</Text>
+      <Text style={styles.todoText}>"{todo.text}"</Text>
+    </View>
+  );
+
   return (
     <View style={styles.popUpBox}>
-      <View style={styles.textContainer}>
-        <Text style={styles.questionText}>{popUpText}</Text>
-        <Text style={styles.todoText}>"{todo.text}"</Text>
-      </View>
+      <View style={styles.mainViewContainer}>{mainView}</View>
       <View style={styles.buttonsContainer}>{buttonComponents}</View>
     </View>
   );
@@ -32,9 +38,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     zIndex: 220,
   },
-  textContainer: {
-    padding: "8%",
+  mainViewContainer: {
     flex: 1,
+  },
+  mainView: {
+    padding: "8%",
     alignItems: "center",
     justifyContent: "center",
   },
