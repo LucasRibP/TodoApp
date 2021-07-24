@@ -13,7 +13,7 @@ export default function App() {
   const [isEditPopUpOpen, setIsEditPopUpOpen] = useState(false);
   const [editableTodo, setEditableTodo] = useState({});
   const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
-  const [activeTagFilters, setActiveTagFilters] = useState([0]);
+  const [activeTagFilters, setActiveTagFilters] = useState([]);
   const filteredTodos = todos.filter((todo) =>
     activeTagFilters.every((activeTagFilter) => {
       return todo.tagIds.includes(activeTagFilter);

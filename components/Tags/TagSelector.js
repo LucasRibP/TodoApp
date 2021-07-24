@@ -33,7 +33,7 @@ export default TagSelector = ({
         .slice(1, tags.length)
         .filter((tag) => tag.name.includes(searchFilter))
     );
-  }, [tags]);
+  }, [tags, searchFilter]);
 
   const onChangeSearchFilter = (text) => {
     setSearchFilter(text);
@@ -48,11 +48,10 @@ export default TagSelector = ({
   };
 
   const createNewTag = () => {
-    setTags([
-      ...tags,
-      { name: searchFilter, color: "#aaa", id: tags[tags.length - 1].id + 1 },
-    ]);
+    const tag_id = tags[tags.length - 1].id + 1;
+    setTags([...tags, { name: searchFilter, color: "#aaa", id: tag_id }]);
     setSearchFilter("");
+    setSelectedTags([...selectedTags, tag_id]);
   };
   // TODO: Fix Selector Closing
   const renderTag = (tag) => (
