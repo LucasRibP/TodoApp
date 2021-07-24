@@ -77,6 +77,37 @@ export default TagSelector = ({
     setTags(newTags);
   };
 
+  const tagList =
+    choosableTags.length > 0 ? (
+      <FlatList
+        data={choosableTags}
+        renderItem={renderTag}
+        keyExtractor={(tag) => {
+          return tag.id.toString();
+        }}
+      />
+    ) : tags.length > 1 ? (
+      <View style={styles.noTagFound}>
+        <Pressable onPress={createNewTag} style={styles.createNewTag}>
+          <View style={styles.newTagTextContainer}>
+            <Text style={styles.newTagText}>Create</Text>
+          </View>
+          <View style={styles.newTagContainer}>
+            <Tag
+              tag={{ item: { name: searchFilter, color: "#aaa", id: -1 } }}
+              active
+            />
+          </View>
+        </Pressable>
+      </View>
+    ) : (
+      <View style={styles.noExistantTag}>
+        <Text style={styles.noExistantTagText}>
+          Use the text field above to create your first tag!
+        </Text>
+      </View>
+    );
+
   return (
     <View style={styles.componentContainer}>
       {isTagEditorOpen ? (
@@ -104,35 +135,7 @@ export default TagSelector = ({
           onChangeText={onChangeSearchFilter}
           value={searchFilter}
         />
-        {choosableTags.length > 0 ? (
-          <FlatList
-            data={choosableTags}
-            renderItem={renderTag}
-            keyExtractor={(tag) => {
-              return tag.id.toString();
-            }}
-          />
-        ) : searchFilter.length > 0 ? (
-          <View style={styles.noTagFound}>
-            <Pressable onPress={createNewTag} style={styles.createNewTag}>
-              <View style={styles.newTagTextContainer}>
-                <Text style={styles.newTagText}>Create</Text>
-              </View>
-              <View style={styles.newTagContainer}>
-                <Tag
-                  tag={{ item: { name: searchFilter, color: "#aaa", id: -1 } }}
-                  active
-                />
-              </View>
-            </Pressable>
-          </View>
-        ) : (
-          <View style={styles.noExistantTag}>
-            <Text style={styles.noExistantTagText}>
-              Use the text field above to create your first tag!
-            </Text>
-          </View>
-        )}
+        {tagList}
       </View>
     </View>
   );
