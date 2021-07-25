@@ -86,7 +86,7 @@ export default TagSelector = ({
           return tag.id.toString();
         }}
       />
-    ) : tags.length > 1 ? (
+    ) : tags.length >= 1 ? (
       <View style={styles.noTagFound}>
         <Pressable onPress={createNewTag} style={styles.createNewTag}>
           <View style={styles.newTagTextContainer}>

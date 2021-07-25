@@ -70,14 +70,18 @@ export default function App() {
     loadTags();
   }, []);
 
-  const addTodo = (todo) => {
-    let newTodos = [...todos, todo];
-    newTodos.sort((a, b) => {
+  const sortTodos = (allTodos) => {
+    allTodos.sort((a, b) => {
       if (a.checked == b.checked) {
         a.key > b.key ? 1 : -1;
       }
       return a.checked ? 1 : -1;
     });
+  };
+
+  const addTodo = (todo) => {
+    let newTodos = [...todos, todo];
+    sortTodos(newTodos);
     setTodos(newTodos);
   };
 
@@ -99,7 +103,17 @@ export default function App() {
   };
 
   const deleteTodo = (todo) => {
-    setTodos([...todos.filter((item) => item.key !== todo.key)]);
+    const newTodos = [...todos.filter((item) => item.key !== todo.key)];
+    setTodos(newTodos);
+  };
+
+  const editTodo = (editedTodo) => {
+    const newTodos = [
+      ...todos.filter((item) => item.key !== editedTodo.key),
+      editedTodo,
+    ];
+    sortTodos(newTodos);
+    setTodos(newTodos);
   };
 
   return (
@@ -134,6 +148,7 @@ export default function App() {
       {isEditPopUpOpen ? (
         <EditingPopUp
           deleteTodo={deleteTodo}
+          editTodo={editTodo}
           editableTodo={editableTodo}
           setIsEditPopUpOpen={setIsEditPopUpOpen}
         />

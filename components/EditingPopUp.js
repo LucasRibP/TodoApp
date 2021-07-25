@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TouchableWithoutFeedback, Text } from "react-native";
+import TodoEditor from "./TodoEditor";
 import TodoPopUp from "./TodoPopUp";
 
 export default EditingPopUp = ({
   deleteTodo,
+  editTodo,
   editableTodo,
   setIsEditPopUpOpen,
 }) => {
@@ -32,7 +34,7 @@ export default EditingPopUp = ({
     />
   ) : todoEditorOpen ? (
     <TodoPopUp
-      newMainView={<Text>I'm a placeholder</Text>}
+      newMainView={<TodoEditor todo={editableTodo} editTodo={editTodo} />}
       buttons={[
         {
           text: "CANCEL",
