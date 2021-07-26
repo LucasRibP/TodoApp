@@ -12,6 +12,14 @@ export default EditingPopUp = ({
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [todoEditorOpen, setTodoEditorOpen] = useState(false);
 
+  const closeTopPopUp = () => {
+    deleteConfirmationOpen
+      ? setDeleteConfirmationOpen(false)
+      : todoEditorOpen
+      ? setTodoEditorOpen(false)
+      : setIsEditPopUpOpen(false);
+  };
+
   const curPopUp = deleteConfirmationOpen ? (
     <TodoPopUp
       popUpText={"Are you sure you want to delete the following to-do?"}
@@ -74,7 +82,7 @@ export default EditingPopUp = ({
 
   return (
     <View style={styles.componentContainer}>
-      <TouchableWithoutFeedback onPress={() => setIsEditPopUpOpen(false)}>
+      <TouchableWithoutFeedback onPress={closeTopPopUp}>
         <View style={styles.fullScreenTouchHandler} />
       </TouchableWithoutFeedback>
       {curPopUp}

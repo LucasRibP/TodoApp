@@ -73,7 +73,7 @@ export default AddTodo = ({
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Add todo"
+            placeholder="Add to-do..."
             onChangeText={onChangeText}
             value={value}
           />
