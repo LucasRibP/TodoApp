@@ -40,11 +40,19 @@ export default TagSelector = ({
   };
 
   const toggleSelectionTag = (id) => {
-    if (selectedTags.includes(id)) {
-      setSelectedTags([...selectedTags.filter((item) => item != id)]);
-    } else {
-      setSelectedTags([...selectedTags, id]);
+    let newSelectedTags = [...selectedTags];
+    if (newSelectedTags.includes(0)) {
+      newSelectedTags = [];
     }
+    if (newSelectedTags.includes(id)) {
+      newSelectedTags = [...newSelectedTags.filter((item) => item != id)];
+      if (newSelectedTags.length == 0) {
+        newSelectedTags = [0];
+      }
+    } else {
+      newSelectedTags = [...newSelectedTags, id];
+    }
+    setSelectedTags(newSelectedTags);
   };
 
   const createNewTag = () => {

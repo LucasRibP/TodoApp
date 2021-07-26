@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 import TagButton from "./Tags/TagButton";
 import TagSelector from "./Tags/TagSelector";
 
-export default TodoEditor = ({ todo, editTodo, tags, setTags }) => {
+export default TodoEditor = ({ todo, setEditedTodo, tags, setTags }) => {
   const [text, setText] = useState(todo.text);
   const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
   const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState(todo.tagIds);
+
+  useEffect(() => {
+    console.log(selectedTags);
+    setEditedTodo({
+      text: text,
+      key: todo.key,
+      checked: todo.checked,
+      tagIds: selectedTags > 0 ? selectedTags : [0],
+    });
+  }, [text, selectedTags]);
 
   return (
     <View style={styles.componentContainer}>

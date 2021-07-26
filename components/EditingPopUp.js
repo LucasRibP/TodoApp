@@ -13,6 +13,7 @@ export default EditingPopUp = ({
 }) => {
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [todoEditorOpen, setTodoEditorOpen] = useState(false);
+  const [editedTodo, setEditedTodo] = useState({});
 
   const closeTopPopUp = () => {
     deleteConfirmationOpen
@@ -20,6 +21,11 @@ export default EditingPopUp = ({
       : todoEditorOpen
       ? setTodoEditorOpen(false)
       : setIsEditPopUpOpen(false);
+  };
+
+  const onEditConfirmation = () => {
+    editTodo(editedTodo);
+    setIsEditPopUpOpen(false);
   };
 
   const curPopUp = deleteConfirmationOpen ? (
@@ -49,7 +55,7 @@ export default EditingPopUp = ({
           tags={tags}
           setTags={setTags}
           todo={editableTodo}
-          editTodo={editTodo}
+          setEditedTodo={setEditedTodo}
         />
       }
       buttons={[
@@ -59,7 +65,11 @@ export default EditingPopUp = ({
           onPress: () => setTodoEditorOpen(false),
         },
 
-        { text: "CONFIRM", color: "hsl(205, 82%, 56%)", onPress: () => {} },
+        {
+          text: "CONFIRM",
+          color: "hsl(205, 82%, 56%)",
+          onPress: onEditConfirmation,
+        },
       ]}
     />
   ) : (
