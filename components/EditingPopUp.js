@@ -4,6 +4,8 @@ import TodoEditor from "./TodoEditor";
 import TodoPopUp from "./TodoPopUp";
 
 export default EditingPopUp = ({
+  tags,
+  setTags,
   deleteTodo,
   editTodo,
   editableTodo,
@@ -42,7 +44,14 @@ export default EditingPopUp = ({
     />
   ) : todoEditorOpen ? (
     <TodoPopUp
-      newMainView={<TodoEditor todo={editableTodo} editTodo={editTodo} />}
+      newMainView={
+        <TodoEditor
+          tags={tags}
+          setTags={setTags}
+          todo={editableTodo}
+          editTodo={editTodo}
+        />
+      }
       buttons={[
         {
           text: "CANCEL",

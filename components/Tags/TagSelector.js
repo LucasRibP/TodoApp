@@ -53,7 +53,7 @@ export default TagSelector = ({
     setSearchFilter("");
     setSelectedTags([...selectedTags, tag_id]);
   };
-  // TODO: Fix Selector Closing
+
   const renderTag = (tag) => (
     <Pressable
       style={styles.tag}

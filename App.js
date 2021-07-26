@@ -147,6 +147,8 @@ export default function App() {
       </View>
       {isEditPopUpOpen ? (
         <EditingPopUp
+          tags={tags}
+          setTags={setTags}
           deleteTodo={deleteTodo}
           editTodo={editTodo}
           editableTodo={editableTodo}
