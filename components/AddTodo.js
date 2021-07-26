@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import TagSelector from "./Tags/TagSelector";
+import TagButton from "./Tags/TagButton";
 
 export default AddTodo = ({
   addTodo,
@@ -78,16 +79,10 @@ export default AddTodo = ({
             value={value}
           />
         </View>
-        <Pressable
-          style={(pressed) =>
-            pressed
-              ? [styles.tagContainer, styles.tagContainerPressed]
-              : [styles.tagContainer, styles.tagContainerUnpressed]
-          }
-          onPress={() => setIsTagSelectorOpen(!isTagSelectorOpen)}
-        >
-          <MaterialCommunityIcons name="label" color="#aaa" size={30} />
-        </Pressable>
+        <TagButton
+          isTagSelectorOpen={isTagSelectorOpen}
+          setIsTagSelectorOpen={setIsTagSelectorOpen}
+        />
         <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
           <Text>Add</Text>
         </TouchableOpacity>
@@ -137,15 +132,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#ddd",
     borderRadius: 10,
   },
-  tagContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: 40,
-    width: 40,
-    borderRadius: 500,
-    marginHorizontal: 5,
-  },
-  tagContainerPressed: {},
-  tagContainerUnpressed: { backgroundColor: "grey" },
   tag: {},
 });
