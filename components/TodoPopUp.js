@@ -1,7 +1,14 @@
 import React from "react";
 import { StyleSheet, View, Pressable, Text } from "react-native";
 
-export default TodoPopUp = ({ popUpText, todo, buttons, newMainView }) => {
+export default TodoPopUp = ({
+  popUpText,
+  todo,
+  buttons,
+  newMainView,
+  height = "40%",
+  width = "80%",
+}) => {
   buttonComponents = buttons.map((button, index) => (
     <Pressable
       key={index.toString()}
@@ -22,7 +29,7 @@ export default TodoPopUp = ({ popUpText, todo, buttons, newMainView }) => {
   );
 
   return (
-    <View style={styles.popUpBox}>
+    <View style={[styles.popUpBox, { height: height, width: width }]}>
       <View style={styles.mainViewContainer}>{mainView}</View>
       <View style={styles.buttonsContainer}>{buttonComponents}</View>
     </View>
@@ -32,10 +39,7 @@ export default TodoPopUp = ({ popUpText, todo, buttons, newMainView }) => {
 const styles = StyleSheet.create({
   popUpBox: {
     backgroundColor: "white",
-    height: "40%",
-    width: "80%",
     borderRadius: 10,
-    overflow: "hidden",
     zIndex: 220,
   },
   mainViewContainer: {
@@ -51,7 +55,10 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: "row",
     width: "100%",
-    height: "20%",
+    height: "25%",
+    paddingTop: 10,
+    borderRadius: 10,
+    overflow: "hidden",
   },
   button: {
     flex: 1,

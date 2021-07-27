@@ -22,9 +22,9 @@ export default TodoEditor = ({ todo, setEditedTodo, tags, setTags }) => {
   return (
     <View style={styles.componentContainer}>
       <View style={styles.title}>
-        <Text>Alter the following to-do...</Text>
+        <Text style={styles.titleText}>Alter the following to-do...</Text>
       </View>
-      <View style={styles.editorCoontainer}>
+      <View style={styles.editorContainer}>
         <View style={styles.textEditor}>
           <TextInput
             placeholder="Type the new text..."
@@ -62,6 +62,30 @@ export default TodoEditor = ({ todo, setEditedTodo, tags, setTags }) => {
 const styles = StyleSheet.create({
   componentContainer: {
     flex: 1,
+    alignItems: "center",
   },
-  textEditor: {},
+  title: {
+    height: "60%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  titleText: {
+    fontSize: 16,
+  },
+  editorContainer: {
+    width: "90%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#aaa",
+  },
+  textEditor: { flex: 1, paddingLeft: 10 },
+  tagSelectorContainer: {
+    position: "absolute",
+    bottom: "110%",
+    right: 60,
+    zIndex: 10,
+  },
 });

@@ -50,6 +50,7 @@ export default EditingPopUp = ({
     />
   ) : todoEditorOpen ? (
     <TodoPopUp
+      height={"30%"}
       newMainView={
         <TodoEditor
           tags={tags}
@@ -134,7 +135,6 @@ const styles = StyleSheet.create({
     height: "40%",
     width: "80%",
     borderRadius: 10,
-    overflow: "hidden",
     zIndex: 220,
   },
   textContainer: {
