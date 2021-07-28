@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TouchableWithoutFeedback, Text } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
+import TagSelectorPopUp from "./Tags/TagSelectorPopUp";
 import TodoEditor from "./TodoEditor";
 import TodoPopUp from "./TodoPopUp";
 
@@ -14,10 +15,14 @@ export default EditingPopUp = ({
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [todoEditorOpen, setTodoEditorOpen] = useState(false);
   const [editedTodo, setEditedTodo] = useState({});
+  const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
+  const [selectedTags, setSelectedTags] = useState(editTodo.tagIds);
 
   const closeTopPopUp = () => {
     deleteConfirmationOpen
       ? setDeleteConfirmationOpen(false)
+      : isTagSelectorOpen
+      ? setIsTagSelectorOpen(false)
       : todoEditorOpen
       ? setTodoEditorOpen(false)
       : setIsEditPopUpOpen(false);
@@ -48,15 +53,35 @@ export default EditingPopUp = ({
         },
       ]}
     />
+  ) : isTagSelectorOpen ? (
+    <TodoPopUp
+      height={"50%"}
+      newMainView={
+        <TagSelectorPopUp
+          tags={tags}
+          setTags={setTags}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
+      }
+      buttons={[
+        {
+          text: "CONFIRM",
+          color: "hsl(205, 82%, 56%)",
+          onPress: onEditConfirmation,
+        },
+      ]}
+    />
   ) : todoEditorOpen ? (
     <TodoPopUp
       height={"30%"}
       newMainView={
         <TodoEditor
-          tags={tags}
-          setTags={setTags}
           todo={editableTodo}
           setEditedTodo={setEditedTodo}
+          selectedTags={selectedTags}
+          isTagSelectorOpen={isTagSelectorOpen}
+          setIsTagSelectorOpen={setIsTagSelectorOpen}
         />
       }
       buttons={[
@@ -102,9 +127,10 @@ export default EditingPopUp = ({
 
   return (
     <View style={styles.componentContainer}>
-      <TouchableWithoutFeedback onPress={closeTopPopUp}>
-        <View style={styles.fullScreenTouchHandler} />
-      </TouchableWithoutFeedback>
+      <Pressable
+        style={styles.fullScreenTouchHandler}
+        onPressIn={closeTopPopUp}
+      />
       {curPopUp}
     </View>
   );

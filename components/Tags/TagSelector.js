@@ -14,6 +14,9 @@ export default TagSelector = ({
   setTags,
   selectedTags,
   setSelectedTags,
+  tagSelectorWidth = 200,
+  tagSelectorHeight = 300,
+  areTagsEditable = true,
 }) => {
   const [searchFilter, setSearchFilter] = useState("");
   const [choosableTags, setChoosableTags] = useState(
@@ -128,7 +131,12 @@ export default TagSelector = ({
       ) : (
         <></>
       )}
-      <View style={styles.tagSelectorContainer}>
+      <View
+        style={[
+          styles.tagSelectorContainer,
+          { width: tagSelectorWidth, height: tagSelectorHeight },
+        ]}
+      >
         {isTagEditorOpen ? (
           <Pressable
             style={styles.TagSelectorTouchDetector}
@@ -152,8 +160,6 @@ export default TagSelector = ({
 const styles = StyleSheet.create({
   componentContainer: {},
   tagSelectorContainer: {
-    width: 200,
-    height: 300,
     backgroundColor: "#fafafa",
     borderRadius: 5,
     padding: 8,

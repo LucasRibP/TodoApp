@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, TextInput, Text } from "react-native";
+import { View, StyleSheet, TextInput, Text, Pressable } from "react-native";
 import TagButton from "./Tags/TagButton";
 import TagSelector from "./Tags/TagSelector";
 
-export default TodoEditor = ({ todo, setEditedTodo, tags, setTags }) => {
+export default TodoEditor = ({
+  todo,
+  setEditedTodo,
+  selectedTags,
+  isTagSelectorOpen,
+  setIsTagSelectorOpen,
+}) => {
   const [text, setText] = useState(todo.text);
-  const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
-  const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
-  const [selectedTags, setSelectedTags] = useState(todo.tagIds);
 
   useEffect(() => {
-    console.log(selectedTags);
     setEditedTodo({
       text: text,
       key: todo.key,
@@ -32,22 +34,6 @@ export default TodoEditor = ({ todo, setEditedTodo, tags, setTags }) => {
             value={text}
           />
         </View>
-        {isTagSelectorOpen ? (
-          <>
-            <View style={styles.tagSelectorContainer}>
-              <TagSelector
-                tags={tags}
-                setTags={setTags}
-                selectedTags={selectedTags}
-                setSelectedTags={setSelectedTags}
-                isTagEditorOpen={isTagEditorOpen}
-                setIsTagEditorOpen={setIsTagEditorOpen}
-              />
-            </View>
-          </>
-        ) : (
-          <></>
-        )}
         <View style={styles.tagButtonContainer}>
           <TagButton
             isTagSelectorOpen={isTagSelectorOpen}
@@ -82,10 +68,4 @@ const styles = StyleSheet.create({
     borderColor: "#aaa",
   },
   textEditor: { flex: 1, paddingLeft: 10 },
-  tagSelectorContainer: {
-    position: "absolute",
-    bottom: "110%",
-    right: 60,
-    zIndex: 10,
-  },
 });
