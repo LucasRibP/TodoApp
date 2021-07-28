@@ -14,8 +14,6 @@ export default TagSelector = ({
   setTags,
   selectedTags,
   setSelectedTags,
-  isTagEditorOpen,
-  setIsTagEditorOpen,
 }) => {
   const [searchFilter, setSearchFilter] = useState("");
   const [choosableTags, setChoosableTags] = useState(
@@ -26,6 +24,8 @@ export default TagSelector = ({
     color: "",
     id: -1,
   });
+
+  const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
 
   useEffect(() => {
     setChoosableTags(
@@ -94,7 +94,13 @@ export default TagSelector = ({
           return tag.id.toString();
         }}
       />
-    ) : tags.length >= 1 ? (
+    ) : tags.length == 1 && searchFilter.length < 1 ? (
+      <View style={styles.noExistantTag}>
+        <Text style={styles.noExistantTagText}>
+          Use the text field above to create your first tag!
+        </Text>
+      </View>
+    ) : (
       <View style={styles.noTagFound}>
         <Pressable onPress={createNewTag} style={styles.createNewTag}>
           <View style={styles.newTagTextContainer}>
@@ -107,12 +113,6 @@ export default TagSelector = ({
             />
           </View>
         </Pressable>
-      </View>
-    ) : (
-      <View style={styles.noExistantTag}>
-        <Text style={styles.noExistantTagText}>
-          Use the text field above to create your first tag!
-        </Text>
       </View>
     );
 
