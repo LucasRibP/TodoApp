@@ -14,6 +14,8 @@ export default TagSelector = ({
   setTags,
   selectedTags,
   setSelectedTags,
+  isTagEditorOpen,
+  setIsTagEditorOpen = () => {},
   tagSelectorWidth = 200,
   tagSelectorHeight = 300,
   areTagsEditable = true,
@@ -27,7 +29,6 @@ export default TagSelector = ({
     color: "",
     id: -1,
   });
-  const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
 
   useEffect(() => {
     setChoosableTags(
