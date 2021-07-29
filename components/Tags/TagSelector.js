@@ -27,7 +27,6 @@ export default TagSelector = ({
     color: "",
     id: -1,
   });
-
   const [isTagEditorOpen, setIsTagEditorOpen] = useState(false);
 
   useEffect(() => {
@@ -121,7 +120,7 @@ export default TagSelector = ({
 
   return (
     <View style={styles.componentContainer}>
-      {isTagEditorOpen ? (
+      {isTagEditorOpen && areTagsEditable ? (
         <View style={styles.tagEditorContainer}>
           <TagEditor
             initialName={tagBeingEdited.name}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Pressable } from "react-native";
 import TagSelectorPopUp from "./Tags/TagSelectorPopUp";
 import TodoEditor from "./TodoEditor";
@@ -14,9 +14,16 @@ export default EditingPopUp = ({
 }) => {
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [todoEditorOpen, setTodoEditorOpen] = useState(false);
-  const [editedTodo, setEditedTodo] = useState({});
+  const [editedTodo, setEditedTodo] = useState({ ...editableTodo });
   const [isTagSelectorOpen, setIsTagSelectorOpen] = useState(false);
-  const [selectedTags, setSelectedTags] = useState(editTodo.tagIds);
+  const [selectedTags, setSelectedTags] = useState(editableTodo.tagIds);
+  console.log(selectedTags);
+  useEffect(() => {
+    setEditedTodo({
+      ...editedTodo,
+      tagIds: selectedTags,
+    });
+  }, [selectedTags]);
 
   const closeTopPopUp = () => {
     deleteConfirmationOpen
@@ -68,7 +75,7 @@ export default EditingPopUp = ({
         {
           text: "CONFIRM",
           color: "hsl(205, 82%, 56%)",
-          onPress: onEditConfirmation,
+          onPress: closeTopPopUp,
         },
       ]}
     />
@@ -78,6 +85,7 @@ export default EditingPopUp = ({
       newMainView={
         <TodoEditor
           todo={editableTodo}
+          editedTodo={editedTodo}
           setEditedTodo={setEditedTodo}
           selectedTags={selectedTags}
           isTagSelectorOpen={isTagSelectorOpen}

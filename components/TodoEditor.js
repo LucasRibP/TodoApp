@@ -5,6 +5,7 @@ import TagSelector from "./Tags/TagSelector";
 
 export default TodoEditor = ({
   todo,
+  editedTodo,
   setEditedTodo,
   selectedTags,
   isTagSelectorOpen,
@@ -14,12 +15,10 @@ export default TodoEditor = ({
 
   useEffect(() => {
     setEditedTodo({
+      ...editedTodo,
       text: text,
-      key: todo.key,
-      checked: todo.checked,
-      tagIds: selectedTags > 0 ? selectedTags : [0],
     });
-  }, [text, selectedTags]);
+  }, [text]);
 
   return (
     <View style={styles.componentContainer}>

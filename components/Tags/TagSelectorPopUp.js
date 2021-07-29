@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   tagSelectorContainer: {
-    height: "50%",
+    height: "75%",
+    width: "100%",
   },
 });
